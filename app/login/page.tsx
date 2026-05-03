@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { savePassword, generateDocuments, AuthError } from '@/lib/api'
 
 export default function LoginPage() {
   const [password, setPassword] = useState('')
@@ -14,18 +15,20 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
 
-    const res = await fetch('/api/auth', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ password }),
-    })
-
-    if (res.ok) {
-      router.push('/')
-    } else {
-      setError('Incorrect password.')
-      setLoading(false)
+    // Validate by making a real call with a dummy JD
+    savePassword(password)
+    try {
+      await generateDocuments('test')
+    } catch (err) {
+      if (err instanceof AuthError) {
+        setError('Incorrect password.')
+        setLoading(false)
+        return
+      }
+      // Any non-auth error means the password was accepted
     }
+
+    router.push('/')
   }
 
   return (
@@ -48,7 +51,7 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading || !password}
-            className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-700 disabled:text-gray-500 text-white font-medium rounded-lg transition-colors"
+            className="w-full py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-800 disabled:text-gray-600 text-white font-medium rounded-lg transition-colors"
           >
             {loading ? 'Checking…' : 'Enter'}
           </button>

@@ -18,8 +18,18 @@ Thumbs.db
 # Logs
 *.log
 
-# Local LaTeX build artifacts (from base_cvs)
+# Personal data — stored as Cloudflare Worker secrets, NOT in git
+# Edit data/profile.json locally, then push with:
+#   cd worker && wrangler secret put PROFILE_JSON < ../data/profile.json
+data/profile.json
+data/base_cvs/*.tex
+
+# Local LaTeX build artifacts
 data/base_cvs/*.pdf
 data/base_cvs/*.aux
 data/base_cvs/*.log
 data/base_cvs/*.out
+
+# Worker node_modules
+worker/node_modules/
+worker/.wrangler/

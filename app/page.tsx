@@ -1,15 +1,22 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import JobInput from '@/components/JobInput'
 import OutputPanel from '@/components/OutputPanel'
 import Header from '@/components/Header'
+import { generateDocuments, getPassword, AuthError } from '@/lib/api'
 import type { GeneratedOutput } from '@/lib/types'
 
 export default function Dashboard() {
   const [output, setOutput] = useState<GeneratedOutput | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!getPassword()) router.push('/login')
+  }, [router])
 
   async function handleGenerate(jd: string) {
     setLoading(true)
@@ -17,26 +24,18 @@ export default function Dashboard() {
     setOutput(null)
 
     try {
-      const res = await fetch('/api/generate', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ jd }),
-      })
-
-      if (!res.ok) {
-        const data = await res.json()
-        throw new Error(data.error || 'Generation failed')
-      }
-
-      const data = await res.json()
+      const data = await generateDocuments(jd)
       setOutput(data)
 
-      // Save to history in localStorage
       const history = JSON.parse(localStorage.getItem('ats_history') || '[]')
       history.unshift({ ...data, generated_at: new Date().toISOString(), jd_snippet: jd.slice(0, 120) })
       localStorage.setItem('ats_history', JSON.stringify(history.slice(0, 20)))
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error')
+      if (err instanceof AuthError) {
+        router.push('/login')
+      } else {
+        setError(err instanceof Error ? err.message : 'Unknown error')
+      }
     } finally {
       setLoading(false)
     }

@@ -1,0 +1,72 @@
+{
+  "_note": "Copy this to profile.json and fill in your details. Then push to Cloudflare with: cd worker && wrangler secret put PROFILE_JSON < ../data/profile.json",
+
+  "personal": {
+    "name": "Your Name",
+    "email": "you@example.com",
+    "phone": "+49 ...",
+    "location": "City, Country",
+    "linkedin": "linkedin.com/in/yourhandle",
+    "github": "github.com/yourhandle",
+    "portfolio": "yourhandle.github.io/portfolio"
+  },
+
+  "education": [
+    {
+      "degree": "M.Sc. Your Programme",
+      "institution": "University Name",
+      "location": "City, Country",
+      "start": "YYYY-MM",
+      "end": "present"
+    }
+  ],
+
+  "experience": [
+    {
+      "title": "Job Title",
+      "company": "Company Name",
+      "location": "City, Country",
+      "start": "YYYY-MM",
+      "end": "present",
+      "type": "full-time",
+      "bullets": [
+        "What you did, with numbers and impact",
+        "Another bullet"
+      ]
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "Project Name",
+      "url": "optional-url.com",
+      "status": "live",
+      "tech": ["Tech1", "Tech2"],
+      "description": "What it does and why it matters"
+    }
+  ],
+
+  "skills": {
+    "category_name": ["Skill1", "Skill2"]
+  },
+
+  "awards": [
+    {
+      "year": "2021",
+      "title": "Award Name",
+      "detail": "Issued by..."
+    }
+  ],
+
+  "voice_guide": "Describe your writing voice here so the AI matches it in cover letters.",
+
+  "latex_settings": {
+    "document_class": "\\documentclass[9pt,a4paper]{extarticle}",
+    "geometry": "top=1.05cm, bottom=0.95cm, left=1.2cm, right=1.2cm",
+    "colors": {
+      "accent": "RGB{30, 58, 95}",
+      "lightgray": "RGB{120, 120, 120}"
+    },
+    "note": "See existing templates in data/base_cvs/ for full preamble"
+  }
+}

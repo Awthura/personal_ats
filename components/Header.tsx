@@ -1,12 +1,13 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { clearPassword } from '@/lib/api'
 
 export default function Header() {
   const router = useRouter()
 
-  async function handleLogout() {
-    await fetch('/api/auth', { method: 'DELETE' })
+  function handleLogout() {
+    clearPassword()
     router.push('/login')
   }
 
