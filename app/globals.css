@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --navy: #1e3a5f;
+  }
+}
+
+/* CV preview styles — mirrors the LaTeX layout */
+.cv-preview {
+  font-family: 'Lato', sans-serif;
+  font-size: 9pt;
+  line-height: 1.4;
+  color: #111;
+  background: white;
+  padding: 1.05cm 1.2cm 0.95cm 1.2cm;
+  width: 21cm;
+  min-height: 29.7cm;
+}
+
+.cv-preview h1 { font-size: 1.5rem; font-weight: 700; color: #1e3a5f; }
+.cv-preview .subtitle { color: #787878; font-size: 1rem; }
+.cv-preview .section-title {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #1e3a5f;
+  letter-spacing: 0.08em;
+  border-bottom: 0.5pt solid #6a8ab0;
+  padding-bottom: 1px;
+  margin: 8pt 0 3pt 0;
+}
+.cv-preview .role-title { font-weight: 700; font-size: 0.82rem; }
+.cv-preview .role-company { color: #1e3a5f; font-size: 0.82rem; }
+.cv-preview .role-date { color: #787878; font-size: 0.82rem; }
+.cv-preview ul { margin: 2pt 0; padding-left: 1.2em; list-style: none; }
+.cv-preview li::before { content: '○'; color: #1e3a5f; font-size: 0.7rem; margin-right: 4px; }
+.cv-preview li { font-size: 0.82rem; margin-bottom: 0.5pt; }
+
+@media print {
+  body { background: white; }
+  .no-print { display: none !important; }
+  .cv-preview { padding: 0; margin: 0; box-shadow: none; }
+}

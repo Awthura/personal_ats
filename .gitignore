@@ -1,0 +1,25 @@
+# env — NEVER commit
+.env.local
+.env
+
+# Next.js
+.next/
+out/
+node_modules/
+
+# Build output
+*.tsbuildinfo
+next-env.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local LaTeX build artifacts (from base_cvs)
+data/base_cvs/*.pdf
+data/base_cvs/*.aux
+data/base_cvs/*.log
+data/base_cvs/*.out

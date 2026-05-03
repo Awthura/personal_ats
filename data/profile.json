@@ -1,0 +1,221 @@
+{
+  "personal": {
+    "name": "Aw Thura",
+    "email": "awthura.de@gmail.com",
+    "phone": "+49 176 6153 4416",
+    "location": "Magdeburg, Germany",
+    "linkedin": "linkedin.com/in/awthura",
+    "github": "github.com/awthura",
+    "portfolio": "awthura.github.io/my-portfolio"
+  },
+
+  "summary": "AI/ML Engineer with 2+ years of professional experience building and operating production AI systems, LLM agents, and computer vision pipelines for industrial enterprise clients. Strong Python expertise; hands-on with PyTorch, TensorRT, ONNX, Docker, GitHub Actions, and NVIDIA GPU infrastructure.",
+
+  "education": [
+    {
+      "degree": "M.Sc. Data & Knowledge Engineering",
+      "institution": "Otto-von-Guericke-Universität (OVGU)",
+      "location": "Magdeburg, Germany",
+      "start": "2026-04",
+      "end": "present",
+      "note": "Currently enrolled"
+    },
+    {
+      "degree": "B.Sc. Artificial Intelligence",
+      "institution": "Deggendorf Institute of Technology (THD)",
+      "location": "Germany",
+      "start": "2021-10",
+      "end": "2026-02",
+      "grades": {
+        "thesis": "1.0",
+        "deep_learning": "1.0",
+        "computer_vision": "1.0",
+        "machine_learning": "1.3",
+        "big_data": "1.0"
+      }
+    },
+    {
+      "degree": "B.Eng. Mechatronics Engineering",
+      "institution": "Yangon Technological University (YTU)",
+      "location": "Yangon, Myanmar",
+      "start": "2015",
+      "end": "2020",
+      "note": "Exchange semester at NTHU Taiwan (scholarship)"
+    }
+  ],
+
+  "experience": [
+    {
+      "title": "AI Engineer",
+      "company": "Sentics GmbH",
+      "location": "Magdeburg, Germany",
+      "start": "2023-10",
+      "end": "present",
+      "type": "full-time",
+      "bullets": [
+        "Designed and deployed production LLM/VLM AI agents (Qwen2-VL) using prompt engineering for industrial automation; owned full model lifecycle from prototype to production",
+        "Automated QA and test analysis workflows for 11 detection model pipelines: regression tracking, failure triage, and structured result summaries for engineering and management",
+        "Built REST API backend (FastAPI/Python) with custom admin UI; served company-wide via LAN; owned versioning, incident response, and documentation",
+        "Engineered Kafka/MQTT real-time data pipelines for sensor data ingestion across industrial deployments",
+        "Containerised and orchestrated multi-service AI systems with Docker; administered 10+ Ubuntu/CUDA GPU servers; maintained production monitoring and CI/CD via GitHub Actions",
+        "Coordinated AI adoption across 8+ enterprise clients: requirements analysis, structured briefings, stakeholder presentations",
+        "Deployed NVIDIA Deepstream and TensorRT pipelines serving 160+ industrial cameras"
+      ]
+    },
+    {
+      "title": "AI Engineer (Intern)",
+      "company": "Sentics GmbH",
+      "location": "Magdeburg, Germany",
+      "start": "2022-10",
+      "end": "2023-09",
+      "type": "internship",
+      "bullets": [
+        "Built automated data ingestion and annotation pipelines for 11 detection models; designed QA workflows",
+        "Configured production GPU server from scratch: Ubuntu 22.04, CUDA, NVIDIA drivers, NVAIE",
+        "Applied TensorRT INT8/FP16 quantisation experiments for model benchmarking and selection",
+        "Documented infrastructure, integration procedures, and deployment processes"
+      ]
+    },
+    {
+      "title": "Research Intern (Computer Vision)",
+      "company": "NTHU NEAF Lab",
+      "location": "Hsinchu, Taiwan",
+      "start": "2022-07",
+      "end": "2022-09",
+      "type": "internship",
+      "note": "Dates to be confirmed by user — template shows Jul-Sep 2022 but original report says winter internship",
+      "bullets": [
+        "Applied CV-based defect analysis on semiconductor surfaces; automated quality inspection pipeline",
+        "Presented paper on fire flame detection using logistic regression and video processing",
+        "Studied image processing, motion estimation, and neural network fundamentals"
+      ]
+    },
+    {
+      "title": "Data Engineer (Part-time)",
+      "company": "The Insights",
+      "location": "Yangon, Myanmar",
+      "start": "2021-06",
+      "end": "2022-08",
+      "type": "part-time",
+      "bullets": [
+        "Built automated ETL pipelines and Power BI/Tableau dashboards; reduced manual reporting effort by 60%",
+        "Collaborated with business stakeholders to define KPIs and deliver decision-ready analytics"
+      ]
+    },
+    {
+      "title": "Software Engineering Project Lead & Scrum Master",
+      "company": "Yangon Technological University",
+      "location": "Yangon, Myanmar",
+      "start": "2021",
+      "end": "2021",
+      "type": "academic",
+      "bullets": [
+        "Led 12-person cross-functional team (Jira) to deliver a full-stack web application",
+        "Facilitated sprint ceremonies; presented results to management stakeholders"
+      ]
+    }
+  ],
+
+  "projects": [
+    {
+      "name": "KLAR — Interactive Learning Platform",
+      "url": "klar-learn.dev",
+      "status": "live",
+      "tech": ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS 4", "GitHub Actions CI/CD"],
+      "description": "Full-stack web app built independently in 3 weekends; 25 interactive modules (DSA + ML); automated CI/CD deployment pipeline"
+    },
+    {
+      "name": "Path2Anywhere — Route Optimisation App",
+      "url": "path2anywhere.com",
+      "status": "live",
+      "tech": ["n8n", "Docker", "Google Maps API", "Hetzner VPS", "HTML/CSS/JS"],
+      "description": "Self-hosted web app with n8n workflow automation backend; independently maintained in production"
+    },
+    {
+      "name": "Real-time Object Detection Optimisation",
+      "type": "Bachelor Thesis",
+      "grade": "1.0",
+      "tech": ["NVIDIA Deepstream", "TensorRT", "YOLO", "DETRs", "ONNX", "Python", "C++"],
+      "description": "3× throughput improvement on industrial camera streams via TensorRT INT8/FP16 quantisation and Deepstream pipeline design"
+    },
+    {
+      "name": "VLM Production Platform",
+      "tech": ["Python", "FastAPI", "Qwen2-VL", "Docker", "Kafka", "MQTT", "ONNX"],
+      "description": "End-to-end AI agent platform deployed across 8+ enterprise clients; full lifecycle ownership"
+    },
+    {
+      "name": "Digital Twin Sensor Network",
+      "tech": ["NVIDIA Deepstream", "Python", "Kafka", "MQTT", "Docker"],
+      "description": "Scalable multi-camera AI network (8–160 cameras) for real-time spatial localisation and object tracking"
+    },
+    {
+      "name": "Library Assistant Chatbot",
+      "tech": ["Python", "Rasa", "NLP", "REST API"],
+      "description": "Conversational AI with intent classification, slot filling, and external knowledge-source integration"
+    },
+    {
+      "name": "Chess ELO Rating Prediction",
+      "tech": ["Python", "scikit-learn", "Pandas", "XGBoost", "Random Forest"],
+      "result": "R² = 0.81 on 100k+ records",
+      "description": "Feature engineering and ensemble modelling on large-scale game data; full written methodology"
+    }
+  ],
+
+  "awards": [
+    {
+      "year": "2021",
+      "title": "Winner, ASEAN-INDIA Hackathon",
+      "detail": "National Delegate for Myanmar (Ministry of Education India & ASEAN Foundation)"
+    },
+    {
+      "year": "2020",
+      "title": "Runner-up, Future Ready ASEAN",
+      "detail": "National Delegate for Myanmar (ASEAN Foundation)"
+    }
+  ],
+
+  "skills": {
+    "ai_ml": ["PyTorch", "TensorFlow", "scikit-learn", "Hugging Face", "Ultralytics", "OpenCV", "SAM-2"],
+    "llm_vlm": ["LLMs", "VLMs", "Prompt Engineering", "AI Agents", "Qwen2-VL", "Anthropic API", "OpenAI API"],
+    "cv_optimization": ["NVIDIA Deepstream", "TensorRT", "ONNX Runtime", "INT8/FP16 quantisation", "YOLO", "DETRs"],
+    "backend": ["Python (advanced)", "FastAPI", "REST APIs", "SQL", "Java (basic)", "C++ (basic)"],
+    "frontend": ["Next.js", "React", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion"],
+    "devops": ["Docker", "docker-compose", "GitHub Actions", "Git", "Linux/Ubuntu", "Bash", "CUDA", "NVAIE"],
+    "data": ["Kafka", "MQTT", "ETL", "Pandas", "NumPy", "Power BI", "Tableau", "n8n"],
+    "testing": ["pytest", "Playwright", "automated QA pipelines", "regression tracking"],
+    "methods": ["Agile/Scrum", "Jira", "CI/CD", "clean code", "microservices"],
+    "languages": {
+      "English": "C1 — TOEFL 104 + Duolingo",
+      "German": "B1 — actively improving",
+      "Burmese": "native"
+    }
+  },
+
+  "target_roles": [
+    "AI Engineer",
+    "ML Engineer",
+    "MLOps Engineer",
+    "Computer Vision Engineer",
+    "Data Scientist",
+    "Full-Stack Developer",
+    "AI Researcher",
+    "Working Student (AI/ML/Data)"
+  ],
+
+  "voice_guide": "Personal, specific, genuine. Connect to real details about the company. No corporate jargon. Honest about gaps. Advanced but natural English. Structure: specific opening hook → what I have actually done (plainly described) → one paragraph showing I understand something real about the company/domain → honest gap statement if relevant → warm simple closing.",
+
+  "latex_settings": {
+    "document_class": "\\documentclass[9pt,a4paper]{extarticle}",
+    "geometry": "top=1.05cm, bottom=0.95cm, left=1.2cm, right=1.2cm",
+    "section_spacing": "titlespacing: 0pt 6pt 0pt",
+    "list_spacing": "topsep=2pt, itemsep=0.5pt, parsep=0pt",
+    "role_block_spacing": "\\vspace{3pt} between roles",
+    "project_block_spacing": "\\vspace{1pt} between projects",
+    "colors": {
+      "accent": "RGB{30, 58, 95}",
+      "lightgray": "RGB{120, 120, 120}"
+    },
+    "hyperref": "use [draft] option to disable active content (required for SAP, Siemens portals)",
+    "note": "Always use extarticle 9pt. Never article 10pt — content overflows to 2 pages."
+  }
+}
