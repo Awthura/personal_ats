@@ -1,0 +1,170 @@
+%% Resume: Data Scientist (EN) — Aw Thura
+%% Compile: pdflatex resume_DS_AwThura_EN.tex
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+\usepackage[a4paper, top=1.1cm, bottom=1.0cm, left=1.4cm, right=1.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+
+\definecolor{accent}{RGB}{30, 58, 95}
+\definecolor{lightgray}{RGB}{120,120,120}
+
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent, pdfborder={0 0 0}}
+
+\titleformat{\section}
+  {\color{accent}\small\bfseries}
+  {}{0em}{\MakeUppercase}
+  [\vspace{1pt}\color{accent!40}\titlerule\vspace{2pt}]
+
+\titlespacing{\section}{0pt}{6pt}{3pt}
+
+\newcommand{\role}[4]{%
+  \noindent
+  {\small\bfseries #1} \hfill {\color{lightgray}\small #4}\\[-2pt]
+  {\small\color{accent}#2} $\cdot$ {\small\color{lightgray}#3}
+}
+
+\newcommand{\project}[2]{%
+  \noindent{\small\bfseries #1} {\footnotesize\color{lightgray}| #2}
+}
+
+\setlist[itemize]{leftmargin=1.1em, topsep=0pt, itemsep=0pt, parsep=0pt,
+  label={\small\textcolor{accent}{$\circ$}}}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+%% Header
+\noindent
+\begin{minipage}[t]{0.78\textwidth}
+  {\LARGE\bfseries\color{accent} Aw Thura}\hfill{\large\color{lightgray} Data Scientist}\\[4pt]
+  \small
+  \faEnvelope\;\href{mailto:awthura.de@gmail.com}{awthura.de@gmail.com}\enspace\textbar\enspace
+  \faPhone\;+49 176 6153 4416\enspace\textbar\enspace
+  \faLinkedin\;\href{https://linkedin.com/in/awthura}{linkedin.com/in/awthura}\\[2pt]
+  \faGithub\;\href{https://github.com/awthura}{github.com/awthura}\enspace\textbar\enspace
+  \faGlobe\;\href{https://awthura.github.io/my-portfolio/}{awthura.github.io/my-portfolio}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.18\textwidth}
+  \raggedleft
+  \includegraphics[width=2.2cm, height=2.8cm, keepaspectratio]{../assets/profile.jpg}
+\end{minipage}\\[3pt]
+\textcolor{accent!30}{\rule{\linewidth}{0.5pt}}
+\vspace{3pt}
+
+\section{Profile}
+\small
+Germany-based Data Scientist with a strong background in statistical modelling, ML pipelines, and
+production-grade AI systems. Experience spanning sensor data analysis, computer vision, NLP, and
+business intelligence. Comfortable taking projects from exploratory analysis through to deployed
+products. Enrolled in M.Sc. Data \& Knowledge Engineering at OVGU Magdeburg (2026). B.Sc.
+Artificial Intelligence, THD Germany (2026, Thesis 1.0).
+
+\section{Professional Experience}
+
+\role{AI / Data Engineer}{Sentics GmbH}{Magdeburg, Germany}{Oct 2023 -- Present}
+\begin{itemize}\small
+  \item Designed and deployed real-time data ingestion pipelines via Kafka/MQTT for multi-sensor industrial streams
+  \item Analysed detection model performance across 11+ models; drove data-informed improvements to training sets
+  \item Built VLM-backed analytical services for industrial vision tasks; surfaced insights via internal REST API
+  \item Monitored production ML models; investigated anomalies and drove root-cause analysis
+\end{itemize}
+\vspace{2pt}
+
+\role{ML Engineer Intern}{Sentics GmbH}{Magdeburg, Germany}{Oct 2022 -- Sep 2023}
+\begin{itemize}\small
+  \item Built and validated training datasets for 11 detection models; automated annotation QA workflows
+  \item Applied TensorRT quantisation experiments for inference benchmarking and model selection
+\end{itemize}
+\vspace{2pt}
+
+\role{Research Intern}{NTHU NEAF Lab}{Hsinchu, Taiwan}{Oct 2019 -- Jan 2020}
+\begin{itemize}\small
+  \item Developed image-processing-based defect analysis pipeline for semiconductor manufacturing surfaces
+\end{itemize}
+\vspace{2pt}
+
+\role{Data Engineer (Part-time)}{The Insights}{Yangon, Myanmar}{Jun 2021 -- Aug 2022}
+\begin{itemize}\small
+  \item Designed automated data pipelines; built Tableau and Power BI dashboards reducing manual reporting by 60\%
+  \item Collaborated with business stakeholders to define KPIs and deliver decision-ready analytics
+\end{itemize}
+
+\section{Technical Projects}
+
+\project{Chess ELO Rating Prediction}{Python, scikit-learn, Pandas, Ensemble Models, Statistical Analysis}
+\begin{itemize}\small
+  \item Engineered features from 100k+ game records; ensemble (Random Forest + XGBoost) achieved R\textsuperscript{2} of 0.81
+\end{itemize}
+\vspace{1pt}
+
+\project{ASEAN-INDIA Hackathon — Fisheries Data Analysis}{Python, Data Analysis, Visualisation}
+\begin{itemize}\small
+  \item National-level winning solution for Myanmar: data-driven insights on fisheries supply chain
+\end{itemize}
+\vspace{1pt}
+
+\project{Real-time Object Detection Optimisation — Bachelor Thesis (Grade 1.0)}{NVIDIA Deepstream, YOLO, TensorRT}
+\begin{itemize}\small
+  \item Systematic benchmarking and optimisation; 3$\times$ speedup on production industrial streams
+\end{itemize}
+\vspace{1pt}
+
+\project{Brain Tumor Classifier}{PyTorch, CNN, Medical Imaging, Python}
+\begin{itemize}\small
+  \item End-to-end deep learning pipeline for MRI tumour classification with data augmentation
+\end{itemize}
+\vspace{1pt}
+
+\project{KLAR — Interactive ML Learning Platform (Live)}{Next.js, TypeScript, React, Tailwind CSS}
+\begin{itemize}\small
+  \item Built 10 interactive ML concept modules live at klar-learn.dev; 25 total topics
+\end{itemize}
+
+\section{Education}
+\small\noindent
+{\bfseries M.Sc. Data \& Knowledge Engineering} \hfill {\color{lightgray} SS2026 (admitted)}\\[-2pt]
+{\color{accent}Otto-von-Guericke-Universität (OVGU)}, Magdeburg, Germany\\[2pt]
+{\bfseries B.Sc. Artificial Intelligence} \hfill {\color{lightgray} Oct 2021 -- Feb 2026}\\[-2pt]
+{\color{accent}Deggendorf Institute of Technology (THD)}, Germany\\
+Key Coursework: Machine Learning (1.3) $\cdot$ Deep Learning/Big Data (1.0) $\cdot$ Thesis (1.0)\\[2pt]
+{\bfseries B.Eng. Mechatronics Engineering} \hfill {\color{lightgray} 2015 -- 2020}\\[-2pt]
+{\color{accent}Yangon Technological University (YTU)}, Myanmar $\cdot$ Exchange at NTHU Taiwan (scholarship)
+
+\section{Awards}
+\small\noindent
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+2021 & \textbf{Winner, ASEAN-INDIA Hackathon} — National Delegate for Myanmar (Ministry of Education India \& ASEAN Foundation)\\[-1pt]
+2020 & \textbf{Runner-up, Future Ready ASEAN} — National Delegate for Myanmar (ASEAN Foundation)\\
+\end{tabularx}
+
+\section{Skills}
+\begin{multicols}{2}
+\small\noindent
+{\color{accent}\bfseries Analysis \& Modelling:} scikit-learn $\cdot$ PyTorch $\cdot$ Pandas $\cdot$ NumPy $\cdot$ Statistical Analysis\\[1pt]
+{\color{accent}\bfseries Visualisation:} Tableau $\cdot$ Power BI $\cdot$ Matplotlib $\cdot$ Seaborn\\[1pt]
+{\color{accent}\bfseries Programming:} Python (adv.) $\cdot$ SQL $\cdot$ MATLAB
+
+\columnbreak
+{\color{accent}\bfseries Pipelines:} ETL $\cdot$ Kafka $\cdot$ MQTT $\cdot$ FastAPI $\cdot$ Docker\\[1pt]
+{\color{accent}\bfseries Infra:} Linux/GNU $\cdot$ CUDA $\cdot$ Git $\cdot$ Ubuntu Server\\[1pt]
+{\color{accent}\bfseries Languages:} English C1 (TOEFL 104) $\cdot$ German B1
+\end{multicols}
+
+\end{document}

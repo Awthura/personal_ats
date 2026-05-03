@@ -1,0 +1,157 @@
+%% Resume: Software Developer (EN) — Aw Thura
+%% Compile: pdflatex resume_SWDev_AwThura_EN.tex
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+\usepackage[a4paper, top=1.1cm, bottom=1.0cm, left=1.4cm, right=1.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+
+\definecolor{accent}{RGB}{30, 58, 95}
+\definecolor{lightgray}{RGB}{120,120,120}
+
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent, pdfborder={0 0 0}}
+
+\titleformat{\section}
+  {\color{accent}\small\bfseries}{}{0em}{\MakeUppercase}
+  [\vspace{1pt}\color{accent!40}\titlerule\vspace{2pt}]
+\titlespacing{\section}{0pt}{6pt}{3pt}
+
+\newcommand{\role}[4]{%
+  \noindent{\small\bfseries #1} \hfill {\color{lightgray}\small #4}\\[-2pt]
+  {\small\color{accent}#2} $\cdot$ {\small\color{lightgray}#3}
+}
+\newcommand{\project}[2]{%
+  \noindent{\small\bfseries #1} {\footnotesize\color{lightgray}| #2}
+}
+
+\setlist[itemize]{leftmargin=1.1em, topsep=0pt, itemsep=0pt, parsep=0pt,
+  label={\small\textcolor{accent}{$\circ$}}}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+\noindent
+\begin{minipage}[t]{0.78\textwidth}
+  {\LARGE\bfseries\color{accent} Aw Thura}\hfill{\large\color{lightgray} Software Developer}\\[4pt]
+  \small
+  \faEnvelope\;\href{mailto:awthura.de@gmail.com}{awthura.de@gmail.com}\enspace\textbar\enspace
+  \faPhone\;+49 176 6153 4416\enspace\textbar\enspace
+  \faLinkedin\;\href{https://linkedin.com/in/awthura}{linkedin.com/in/awthura}\\[2pt]
+  \faGithub\;\href{https://github.com/awthura}{github.com/awthura}\enspace\textbar\enspace
+  \faGlobe\;\href{https://awthura.github.io/my-portfolio/}{awthura.github.io/my-portfolio}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.18\textwidth}
+  \raggedleft
+  \includegraphics[width=2.2cm, height=2.8cm, keepaspectratio]{../assets/profile.jpg}
+\end{minipage}\\[3pt]
+\textcolor{accent!30}{\rule{\linewidth}{0.5pt}}
+\vspace{3pt}
+
+\section{Profile}
+\small
+Germany-based Software Developer with 2+ years of professional experience building backend services,
+REST APIs, data pipelines, and full-stack web applications. Broad language portfolio spanning Python,
+TypeScript, JavaScript, Java, SQL, and C++. Delivered live products including an interactive learning
+platform (klar-learn.dev) and a route optimisation app (path2anywhere.com), in addition to production
+AI services at industrial scale. Enrolled in M.Sc. Data \& Knowledge Engineering, OVGU Magdeburg (2026).
+
+\section{Professional Experience}
+
+\role{Software / AI Developer}{Sentics GmbH}{Magdeburg, Germany}{Oct 2023 -- Present}
+\begin{itemize}\small
+  \item Built and deployed REST API backend (FastAPI/Python) for VLM-powered industrial services with custom admin UI
+  \item Developed Kafka/MQTT streaming data services for real-time sensor data ingestion
+  \item Containerised multi-service applications with Docker; owned deployment, versioning, and incident response
+  \item Administered Ubuntu/CUDA servers; scripted environment setup and dependency management
+\end{itemize}
+\vspace{2pt}
+
+\role{Software Developer Intern}{Sentics GmbH}{Magdeburg, Germany}{Oct 2022 -- Sep 2023}
+\begin{itemize}\small
+  \item Developed data processing pipelines for 11 detection models with automated annotation and QA workflows
+  \item Built REST API integrations for model serving and data ingestion services
+\end{itemize}
+\vspace{2pt}
+
+\role{Data Engineering}{The Insights}{Yangon, Myanmar}{Jun 2021 -- Aug 2022}
+\begin{itemize}\small
+  \item Built automated ETL and reporting systems; delivered Tableau/Power BI dashboards for business users
+\end{itemize}
+\vspace{2pt}
+
+\role{Software Engineering Project Lead}{Yangon Technological University}{Yangon, Myanmar}{2021}
+\begin{itemize}\small
+  \item Led 12-student Scrum team (Jira) to deliver a full-stack web application; contributed core backend architecture
+\end{itemize}
+
+\section{Software Projects}
+
+\project{KLAR — Interactive Learning Platform (Live)}{Next.js 16, React 19, TypeScript, Tailwind CSS 4, Framer Motion}
+\begin{itemize}\small
+  \item Full-stack app built in 3 weekends; 25 interactive topics; CI/CD via GitHub Actions; live at klar-learn.dev
+\end{itemize}
+\vspace{1pt}
+
+\project{Path2Anywhere — Route Optimisation App (Live)}{HTML/CSS/JS, Google Maps API, n8n, Docker, Hetzner VPS}
+\begin{itemize}\small
+  \item Self-hosted web app on Hetzner VPS with n8n automation backend; live at path2anywhere.com
+\end{itemize}
+\vspace{1pt}
+
+\project{Library Assistant Chatbot}{Python, Rasa, NLP, REST API}
+\begin{itemize}\small
+  \item End-to-end conversational AI with intent classification, slot filling, and external API integrations
+\end{itemize}
+\vspace{1pt}
+
+\project{Chess ELO Prediction}{Python, scikit-learn, Pandas; R\textsuperscript{2} = 0.81 on 100k+ records}
+\begin{itemize}\small
+  \item Feature engineering and ensemble modelling pipeline on large-scale game data
+\end{itemize}
+
+\section{Education}
+\small\noindent
+{\bfseries M.Sc. Data \& Knowledge Engineering} \hfill {\color{lightgray} SS2026 (admitted)}\\[-2pt]
+{\color{accent}Otto-von-Guericke-Universität (OVGU)}, Magdeburg, Germany\\[2pt]
+{\bfseries B.Sc. Artificial Intelligence} \hfill {\color{lightgray} Oct 2021 -- Feb 2026}\\[-2pt]
+{\color{accent}Deggendorf Institute of Technology (THD)}, Germany $\cdot$ Thesis (1.0)\\[2pt]
+{\bfseries B.Eng. Mechatronics Engineering} \hfill {\color{lightgray} 2015 -- 2020}\\[-2pt]
+{\color{accent}Yangon Technological University (YTU)}, Myanmar $\cdot$ Exchange at NTHU Taiwan (scholarship)
+
+\section{Awards}
+\small\noindent
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+2021 & \textbf{Winner, ASEAN-INDIA Hackathon} — National Delegate for Myanmar\\[-1pt]
+2020 & \textbf{Runner-up, Future Ready ASEAN} — National Delegate for Myanmar (ASEAN Foundation)\\
+\end{tabularx}
+
+\section{Skills}
+\begin{multicols}{2}
+\small\noindent
+{\color{accent}\bfseries Languages:} Python (adv.) $\cdot$ TypeScript $\cdot$ JavaScript $\cdot$ Java $\cdot$ SQL $\cdot$ C++ $\cdot$ MATLAB\\[1pt]
+{\color{accent}\bfseries Frontend:} Next.js $\cdot$ React $\cdot$ Tailwind CSS $\cdot$ Framer Motion $\cdot$ HTML/CSS\\[1pt]
+{\color{accent}\bfseries Backend:} FastAPI $\cdot$ REST APIs $\cdot$ Spring Boot $\cdot$ n8n
+
+\columnbreak
+{\color{accent}\bfseries DevOps:} Docker $\cdot$ Git $\cdot$ GitHub Actions $\cdot$ Linux $\cdot$ Bash\\[1pt]
+{\color{accent}\bfseries Data \& AI:} Kafka $\cdot$ MQTT $\cdot$ ETL $\cdot$ PyTorch $\cdot$ scikit-learn $\cdot$ Pandas\\[1pt]
+{\color{accent}\bfseries Testing:} Playwright $\cdot$ REST API Testing\\[1pt]
+{\color{accent}\bfseries Human Languages:} English C1 (TOEFL 104) $\cdot$ German B1
+\end{multicols}
+
+\end{document}

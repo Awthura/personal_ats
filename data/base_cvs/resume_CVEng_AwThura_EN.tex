@@ -1,0 +1,170 @@
+%% Resume: Computer Vision Engineer (EN) — Aw Thura
+%% Compile: pdflatex resume_CVEng_AwThura_EN.tex
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+\usepackage[a4paper, top=1.1cm, bottom=1.0cm, left=1.4cm, right=1.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+
+\definecolor{accent}{RGB}{30, 58, 95}
+\definecolor{lightgray}{RGB}{120,120,120}
+
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent, pdfborder={0 0 0}}
+
+\titleformat{\section}
+  {\color{accent}\small\bfseries}
+  {}{0em}{\MakeUppercase}
+  [\vspace{1pt}\color{accent!40}\titlerule\vspace{2pt}]
+
+\titlespacing{\section}{0pt}{6pt}{3pt}
+
+\newcommand{\role}[4]{%
+  \noindent
+  {\small\bfseries #1} \hfill {\color{lightgray}\small #4}\\[-2pt]
+  {\small\color{accent}#2} $\cdot$ {\small\color{lightgray}#3}
+}
+
+\newcommand{\project}[2]{%
+  \noindent{\small\bfseries #1} {\footnotesize\color{lightgray}| #2}
+}
+
+\setlist[itemize]{leftmargin=1.1em, topsep=0pt, itemsep=0pt, parsep=0pt,
+  label={\small\textcolor{accent}{$\circ$}}}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+%% Header
+\noindent
+\begin{minipage}[t]{0.78\textwidth}
+  {\LARGE\bfseries\color{accent} Aw Thura}\hfill{\large\color{lightgray} Computer Vision Engineer}\\[4pt]
+  \small
+  \faEnvelope\;\href{mailto:awthura.de@gmail.com}{awthura.de@gmail.com}\enspace\textbar\enspace
+  \faPhone\;+49 176 6153 4416\enspace\textbar\enspace
+  \faLinkedin\;\href{https://linkedin.com/in/awthura}{linkedin.com/in/awthura}\\[2pt]
+  \faGithub\;\href{https://github.com/awthura}{github.com/awthura}\enspace\textbar\enspace
+  \faGlobe\;\href{https://awthura.github.io/my-portfolio/}{awthura.github.io/my-portfolio}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.18\textwidth}
+  \raggedleft
+  \includegraphics[width=2.2cm, height=2.8cm, keepaspectratio]{../assets/profile.jpg}
+\end{minipage}\\[3pt]
+\textcolor{accent!30}{\rule{\linewidth}{0.5pt}}
+\vspace{3pt}
+
+\section{Profile}
+\small
+Germany-based Computer Vision Engineer with 2+ years of production experience in industrial
+perception systems. Specialist in object detection (YOLO, DETRs), camera calibration (500+
+cameras), Vision Language Models, and real-time inference pipelines. Mechatronics background
+enables deep understanding of sensor physics and embedded constraints. Enrolled in M.Sc. Data
+\& Knowledge Engineering at OVGU Magdeburg (2026). B.Sc. Artificial Intelligence, THD (2026, Thesis 1.0).
+
+\section{Professional Experience}
+
+\role{Computer Vision / AI Engineer}{Sentics GmbH}{Magdeburg, Germany}{Oct 2023 -- Present}
+\begin{itemize}\small
+  \item Designed camera calibration framework for 500+ industrial cameras (intrinsics, extrinsics, positional mapping)
+  \item Deployed Digital Twin perception systems with 8--160 camera networks for real-time object localisation
+  \item Built real-time multi-model inference pipelines (NVIDIA Deepstream, TensorRT) for industrial monitoring
+  \item Fine-tuned and deployed Qwen2-VL for production vision-language tasks; served via REST API
+  \item Integrated SAM-2 for advanced segmentation workflows in production environments
+\end{itemize}
+\vspace{2pt}
+
+\role{CV Engineer Intern}{Sentics GmbH}{Magdeburg, Germany}{Oct 2022 -- Sep 2023}
+\begin{itemize}\small
+  \item Built detection pipelines for 11 CV models; automated annotation and validation workflows
+  \item Applied TensorRT INT8/FP16 quantisation for GPU inference optimisation
+\end{itemize}
+\vspace{2pt}
+
+\role{Research Intern — Computer Vision}{NTHU NEAF Lab}{Hsinchu, Taiwan}{Oct 2019 -- Jan 2020}
+\begin{itemize}\small
+  \item Developed CV-based defect analysis on semiconductor/metal surfaces; automated QC pipeline
+\end{itemize}
+\vspace{2pt}
+
+\role{Teaching \& Lab Assistant}{Yangon Technological University}{Yangon, Myanmar}{2020 -- 2022}
+\begin{itemize}\small
+  \item Taught YOLO-based object detection and traffic perception in university computer vision labs
+\end{itemize}
+
+\section{Technical Projects}
+
+\project{Industrial Camera Calibration Framework}{Python, OpenCV, NumPy, Intrinsics/Extrinsics}
+\begin{itemize}\small
+  \item Production calibration system for 500+ cameras: geometric correction, positional mapping, network-wide deployment
+\end{itemize}
+\vspace{1pt}
+
+\project{Real-time Object Detection Optimisation — Bachelor Thesis (Grade 1.0)}{NVIDIA Deepstream, YOLO, DETRs, TensorRT, ONNX}
+\begin{itemize}\small
+  \item 3$\times$ real-time inference speedup on industrial camera streams via TensorRT quantisation and Deepstream
+\end{itemize}
+\vspace{1pt}
+
+\project{Myanmar Traffic Object Detection}{YOLO, Python, Custom Dataset (5000+ images), OpenCV}
+\begin{itemize}\small
+  \item Custom YOLO detector trained on 5000+ annotated images; 92\% mAP for 7 traffic classes
+\end{itemize}
+\vspace{1pt}
+
+\project{NTHU NEAF Lab — Semiconductor Defect Detection}{CV, Image Processing, Python}
+\begin{itemize}\small
+  \item Automated surface defect detection for metal and semiconductor samples in cleanroom context
+\end{itemize}
+\vspace{1pt}
+
+\project{Chess-Piece Detection with YOLO}{YOLO, Python, OpenCV}
+\begin{itemize}\small
+  \item Custom YOLO model for chess piece detection on board images
+\end{itemize}
+
+\section{Education}
+\small\noindent
+{\bfseries M.Sc. Data \& Knowledge Engineering} \hfill {\color{lightgray} SS2026 (admitted)}\\[-2pt]
+{\color{accent}Otto-von-Guericke-Universität (OVGU)}, Magdeburg, Germany\\[2pt]
+{\bfseries B.Sc. Artificial Intelligence} \hfill {\color{lightgray} Oct 2021 -- Feb 2026}\\[-2pt]
+{\color{accent}Deggendorf Institute of Technology (THD)}, Germany\\
+Key Coursework: Computer Vision (1.0) $\cdot$ Machine Learning (1.3) $\cdot$ Deep Learning (1.0) $\cdot$ Thesis (1.0)\\[2pt]
+{\bfseries B.Eng. Mechatronics Engineering} \hfill {\color{lightgray} 2015 -- 2020}\\[-2pt]
+{\color{accent}Yangon Technological University (YTU)}, Myanmar $\cdot$ CV Lab Member $\cdot$ Exchange at NTHU Taiwan
+
+\section{Awards}
+\small\noindent
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+2021 & \textbf{Winner, ASEAN-INDIA Hackathon} — National Delegate for Myanmar (Ministry of Education India \& ASEAN Foundation)\\[-1pt]
+2020 & \textbf{Runner-up, Future Ready ASEAN} — National Delegate for Myanmar (ASEAN Foundation)\\
+\end{tabularx}
+
+\section{Skills}
+\begin{multicols}{2}
+\small\noindent
+{\color{accent}\bfseries Vision:} OpenCV $\cdot$ YOLO/Ultralytics $\cdot$ DETRs $\cdot$ SAM-2 $\cdot$ Camera Calibration $\cdot$ VLMs\\[1pt]
+{\color{accent}\bfseries Optimisation:} NVIDIA Deepstream $\cdot$ TensorRT $\cdot$ ONNX $\cdot$ INT8/FP16 $\cdot$ NVIDIA TAO\\[1pt]
+{\color{accent}\bfseries ML:} PyTorch $\cdot$ TensorFlow $\cdot$ scikit-learn $\cdot$ Hugging Face
+
+\columnbreak
+{\color{accent}\bfseries Infra:} Docker $\cdot$ Linux/GNU $\cdot$ CUDA $\cdot$ Git $\cdot$ Kafka $\cdot$ MQTT\\[1pt]
+{\color{accent}\bfseries Programming:} Python (adv.) $\cdot$ C++ (basic) $\cdot$ MATLAB\\[1pt]
+{\color{accent}\bfseries Languages:} English C1 (TOEFL 104) $\cdot$ German B1
+\end{multicols}
+
+\end{document}

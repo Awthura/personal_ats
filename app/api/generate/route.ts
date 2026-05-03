@@ -1,8 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
+import fs from 'fs'
+import path from 'path'
 import profile from '@/data/profile.json'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+
+function loadBaseCVs(): string {
+  const dir = path.join(process.cwd(), 'data', 'base_cvs')
+  if (!fs.existsSync(dir)) return ''
+
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith('.tex'))
+  return files
+    .slice(0, 5)
+    .map((f) => `=== ${f} ===\n${fs.readFileSync(path.join(dir, f), 'utf-8')}`)
+    .join('\n\n')
+}
+
+const BASE_CVS = loadBaseCVs()
 
 const SYSTEM_PROMPT = `You are an expert CV and cover letter writer for Aw Thura, a professional AI/ML engineer based in Magdeburg, Germany.
 
@@ -13,6 +28,8 @@ Your job:
 
 Profile data:
 ${JSON.stringify(profile, null, 2)}
+
+${BASE_CVS ? `Reference CV templates (use these for LaTeX structure, formatting, and preamble — adapt content for the target role):\n${BASE_CVS}` : ''}
 
 Rules:
 - Match the document language to the job description language (German JD = German CV + CL, English JD = English CV + CL).

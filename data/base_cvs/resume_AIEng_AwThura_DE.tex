@@ -1,0 +1,166 @@
+%% Lebenslauf: Applied AI Engineer (DE) — Aw Thura
+%% Compile: pdflatex resume_AIEng_AwThura_DE.tex
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage[default]{lato}
+\usepackage[a4paper, top=1.1cm, bottom=1.0cm, left=1.4cm, right=1.4cm]{geometry}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{microtype}
+\usepackage{multicol}
+\usepackage{fontawesome5}
+\usepackage{graphicx}
+
+\definecolor{accent}{RGB}{30, 58, 95}
+\definecolor{lightgray}{RGB}{120,120,120}
+
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent, pdfborder={0 0 0}}
+
+\titleformat{\section}
+  {\color{accent}\small\bfseries}
+  {}{0em}{\MakeUppercase}
+  [\vspace{1pt}\color{accent!40}\titlerule\vspace{2pt}]
+
+\titlespacing{\section}{0pt}{6pt}{3pt}
+
+\newcommand{\rolle}[4]{%
+  \noindent
+  {\small\bfseries #1} \hfill {\color{lightgray}\small #4}\\[-2pt]
+  {\small\color{accent}#2} $\cdot$ {\small\color{lightgray}#3}
+}
+
+\newcommand{\projekt}[2]{%
+  \noindent{\small\bfseries #1} {\footnotesize\color{lightgray}| #2}
+}
+
+\setlist[itemize]{leftmargin=1.1em, topsep=0pt, itemsep=0pt, parsep=0pt,
+  label={\small\textcolor{accent}{$\circ$}}}
+
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+%% Kopfzeile
+\noindent
+\begin{minipage}[t]{0.78\textwidth}
+  {\LARGE\bfseries\color{accent} Aw Thura}\hfill{\large\color{lightgray} KI-Ingenieur}\\[4pt]
+  \small
+  \faEnvelope\;\href{mailto:awthura.de@gmail.com}{awthura.de@gmail.com}\enspace\textbar\enspace
+  \faPhone\;+49 176 6153 4416\enspace\textbar\enspace
+  \faLinkedin\;\href{https://linkedin.com/in/awthura}{linkedin.com/in/awthura}\\[2pt]
+  \faGithub\;\href{https://github.com/awthura}{github.com/awthura}\enspace\textbar\enspace
+  \faGlobe\;\href{https://awthura.github.io/my-portfolio/}{awthura.github.io/my-portfolio}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.18\textwidth}
+  \raggedleft
+  \includegraphics[width=2.2cm, height=2.8cm, keepaspectratio]{../assets/profile.jpg}
+\end{minipage}\\[3pt]
+\textcolor{accent!30}{\rule{\linewidth}{0.5pt}}
+\vspace{3pt}
+
+\section{Profil}
+\small
+KI-Ingenieur mit 2+ Jahren Erfahrung im Aufbau und Betrieb von KI-Systemen auf Produktionsniveau
+f\"ur Industriekunden. Spezialist f\"ur Vision Language Models, Echtzeit-Inferenzpipelines und
+KI-gest\"utzte REST-APIs -- von Modellauswahl und Fine-Tuning bis zum containerisierten Deployment.
+M.Sc.\ Data \& Knowledge Engineering, OVGU Magdeburg (2026). B.Sc. Artificial Intelligence, THD
+Deutschland (Bachelorarbeit 1{,}0).
+
+\section{Berufserfahrung}
+
+\rolle{KI-Ingenieur}{Sentics GmbH}{Magdeburg, Deutschland}{Okt 2023 -- heute}
+\begin{itemize}\small
+  \item Qwen2-VL-Backend mit Admin-UI deployed; firmenweit \"uber LAN-REST-API bereitgestellt
+  \item Echtzeit-Inferenzpipelines (NVIDIA Deepstream, TensorRT) f\"ur 160+ Industriekameras aufgebaut
+  \item Kafka/MQTT-Datenerfassung f\"ur Live-Sensorstr\"ome entwickelt, die KI-Dienste speisen
+  \item Multi-Modell-KI-Services mit Docker containerisiert; Produktionsmonitoring verantwortet
+  \item Ubuntu/CUDA-GPU-Server administriert: Treiber-Stack, NVAIE, Umgebungs-Reproduzierbarkeit
+\end{itemize}
+\vspace{2pt}
+
+\rolle{KI-Ingenieur (Praktikum)}{Sentics GmbH}{Magdeburg, Deutschland}{Okt 2022 -- Sep 2023}
+\begin{itemize}\small
+  \item Datenverarbeitungs-Pipelines f\"ur 11 Erkennungsmodelle aufgebaut; Annotations- und QA-Workflows automatisiert
+  \item Produktions-GPU-Server von Grund auf konfiguriert (Ubuntu 22.04, CUDA, NVIDIA-Treiber, NVAIE)
+\end{itemize}
+\vspace{2pt}
+
+\rolle{Forschungspraktikant}{NTHU NEAF Lab}{Hsinchu, Taiwan}{Oct 2019 -- Jan 2020}
+\begin{itemize}\small
+  \item CV-gest\"utzte Defektanalyse auf Halbleiterober\-fl\"achen; automatisierte Qualit\"atspr\"ufungs-Pipeline entwickelt
+\end{itemize}
+\vspace{2pt}
+
+\rolle{Data Engineer (Teilzeit)}{The Insights}{Yangon, Myanmar}{Jun 2021 -- Aug 2022}
+\begin{itemize}\small
+  \item Automatisierte Reporting-Pipelines und BI-Dashboards aufgebaut; manuellen Berichtsaufwand um 60\,\% reduziert
+\end{itemize}
+
+\section{Technische Projekte}
+
+\projekt{VLM-Deployment-Plattform}{Python, FastAPI, Docker, Qwen2-VL, REST API, MQTT, Kafka}
+\begin{itemize}\small
+  \item End-to-End-Produktionsplattform: Fine-Tuning, API-Serving, Admin-UI und unternehmensweiter LAN-Rollout
+\end{itemize}
+\vspace{1pt}
+
+\projekt{Echtzeit-Objekterkennung -- Bachelorarbeit (Note 1{,}0)}{NVIDIA Deepstream, YOLO, DETRs, TensorRT}
+\begin{itemize}\small
+  \item 3-fache Inferenzbeschleunigung auf Industriekamerastr\"omen via TensorRT-Quantisierung und Deepstream
+\end{itemize}
+\vspace{1pt}
+
+\projekt{Digitaler Zwilling -- Sensornetzwerk (8--160 Kameras)}{Python, Docker, Kafka, MQTT, Deepstream}
+\begin{itemize}\small
+  \item Skalierbares Multi-Kamera-KI-Netzwerk f\"ur Echtzeit-Lokalisierung und Objekt\-verfolgung in der Produktion
+\end{itemize}
+\vspace{1pt}
+
+\projekt{Bibliotheks-Assistent Chatbot}{Python, Rasa, NLP, REST API}
+\begin{itemize}\small
+  \item Konversations-KI-Agent mit Intent-Klassifikation, Slot-Filling und externen API-Integrationen
+\end{itemize}
+
+\section{Ausbildung}
+\small\noindent
+{\bfseries M.Sc. Data \& Knowledge Engineering} \hfill {\color{lightgray} SS 2026 (zugelassen)}\\[-2pt]
+{\color{accent}Otto-von-Guericke-Universit\"at (OVGU)}, Magdeburg, Deutschland\\[2pt]
+{\bfseries B.Sc. Artificial Intelligence} \hfill {\color{lightgray} Okt 2021 -- Feb 2026}\\[-2pt]
+{\color{accent}Deggendorf Institute of Technology (THD)}, Deutschland\\
+Schwerpunkte: Machine Learning (1{,}3) $\cdot$ Computer Vision (1{,}0) $\cdot$ Deep Learning/Big Data (1{,}0) $\cdot$ Bachelorarbeit (1{,}0)\\[2pt]
+{\bfseries B.Eng. Mechatronik} \hfill {\color{lightgray} 2015 -- 2020}\\[-2pt]
+{\color{accent}Yangon Technological University (YTU)}, Myanmar $\cdot$ Auslandssemester NTHU Taiwan (Stipendium)
+
+\section{Auszeichnungen}
+\small\noindent
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+2021 & \textbf{Gewinner, ASEAN-INDIA Hackathon} -- Nationaler Delegierter f\"ur Myanmar (Bildungsministerium Indien \& ASEAN Foundation)\\[-1pt]
+2020 & \textbf{Finalist, Future Ready ASEAN} -- Nationaler Delegierter f\"ur Myanmar (ASEAN Foundation)\\
+\end{tabularx}
+
+\section{Kenntnisse}
+\begin{multicols}{2}
+\small\noindent
+{\color{accent}\bfseries KI / ML:} PyTorch $\cdot$ TensorFlow $\cdot$ Ultralytics $\cdot$ OpenCV $\cdot$ scikit-learn $\cdot$ SAM-2\\[1pt]
+{\color{accent}\bfseries LLM / VLM:} Qwen2-VL $\cdot$ Vision Transformer $\cdot$ Multimodal-KI $\cdot$ Hugging Face\\[1pt]
+{\color{accent}\bfseries Deployment:} NVIDIA Deepstream $\cdot$ TensorRT $\cdot$ ONNX $\cdot$ Docker $\cdot$ FastAPI
+
+\columnbreak
+{\color{accent}\bfseries Messaging:} Kafka $\cdot$ MQTT $\cdot$ REST APIs\\[1pt]
+{\color{accent}\bfseries Infrastruktur:} Linux/GNU $\cdot$ CUDA $\cdot$ Ubuntu-Server $\cdot$ Git $\cdot$ Prod.-Monitoring\\[1pt]
+{\color{accent}\bfseries Programmierung:} Python (fortg.) $\cdot$ C++ (Grundkenntn.) $\cdot$ SQL\\[1pt]
+{\color{accent}\bfseries Sprachen:} Deutsch B1 $\cdot$ Englisch C1 (TOEFL 104)
+\end{multicols}
+
+\end{document}

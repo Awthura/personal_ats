@@ -1,0 +1,143 @@
+%% Resume: AI/ML Consultant (EN) — Aw Thura
+%% Compile: pdflatex resume_AIConsult_AwThura_EN.tex
+
+\documentclass[10pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[default]{lato}
+\usepackage[a4paper, top=1.1cm, bottom=1.0cm, left=1.4cm, right=1.4cm]{geometry}
+\usepackage{xcolor,titlesec,enumitem,tabularx,array,hyperref,microtype,multicol,fontawesome5,graphicx}
+
+\definecolor{accent}{RGB}{30, 58, 95}
+\definecolor{lightgray}{RGB}{120,120,120}
+
+\hypersetup{colorlinks=true, urlcolor=accent, linkcolor=accent, pdfborder={0 0 0}}
+
+\titleformat{\section}
+  {\color{accent}\small\bfseries}{}{0em}{\MakeUppercase}
+  [\vspace{1pt}\color{accent!40}\titlerule\vspace{2pt}]
+\titlespacing{\section}{0pt}{6pt}{3pt}
+
+\newcommand{\role}[4]{%
+  \noindent{\small\bfseries #1} \hfill {\color{lightgray}\small #4}\\[-2pt]
+  {\small\color{accent}#2} $\cdot$ {\small\color{lightgray}#3}
+}
+\newcommand{\project}[2]{%
+  \noindent{\small\bfseries #1} {\footnotesize\color{lightgray}| #2}
+}
+
+\setlist[itemize]{leftmargin=1.1em, topsep=0pt, itemsep=0pt, parsep=0pt,
+  label={\small\textcolor{accent}{$\circ$}}}
+\setlength{\parskip}{0pt}
+\setlength{\parindent}{0pt}
+\pagestyle{empty}
+
+\begin{document}
+
+\noindent
+\begin{minipage}[t]{0.78\textwidth}
+  {\LARGE\bfseries\color{accent} Aw Thura}\hfill{\large\color{lightgray} AI / ML Consultant}\\[4pt]
+  \small
+  \faEnvelope\;\href{mailto:awthura.de@gmail.com}{awthura.de@gmail.com}\enspace\textbar\enspace
+  \faPhone\;+49 176 6153 4416\enspace\textbar\enspace
+  \faLinkedin\;\href{https://linkedin.com/in/awthura}{linkedin.com/in/awthura}\\[2pt]
+  \faGithub\;\href{https://github.com/awthura}{github.com/awthura}\enspace\textbar\enspace
+  \faGlobe\;\href{https://awthura.github.io/my-portfolio/}{awthura.github.io/my-portfolio}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.18\textwidth}
+  \raggedleft
+  \includegraphics[width=2.2cm, height=2.8cm, keepaspectratio]{../assets/profile.jpg}
+\end{minipage}\\[3pt]
+\textcolor{accent!30}{\rule{\linewidth}{0.5pt}}
+\vspace{3pt}
+
+\section{Profile}
+\small
+AI/ML Consultant with 2+ years of end-to-end delivery experience across computer vision, LLM/VLM
+deployment, streaming data systems, and full-stack AI products. Advised and delivered for 8+ enterprise
+clients — from requirements definition through production rollout. Able to rapidly assess an
+organisation's AI maturity, identify high-value use cases, and implement production-ready solutions.
+Equally fluent in research (B.Sc. AI thesis 1.0; M.Sc. Data \& Knowledge Engineering, OVGU SS2026)
+and practical delivery (live products: klar-learn.dev, path2anywhere.com).
+
+\section{Consulting \& Delivery Experience}
+
+\role{AI/ML Consultant (Embedded)}{Sentics GmbH}{Magdeburg, Germany}{Oct 2023 -- Present}
+\begin{itemize}\small
+  \item Consulted 8+ enterprise clients on AI adoption: assessed requirements, designed solutions, oversaw deployment
+  \item Delivered VLM-based computer vision platform on NVIDIA GPU infrastructure (TensorRT/ONNX, 3$\times$ speedup)
+  \item Architected real-time data pipeline (Kafka/MQTT) for 500+ camera industrial sensor network
+  \item Built and deployed FastAPI/Python backend with custom admin UI; owned incident response and SLAs
+  \item Containerised multi-service AI systems with Docker; administered Ubuntu/CUDA server environments
+\end{itemize}
+\vspace{2pt}
+
+\role{AI Pipeline Consultant (Intern)}{Sentics GmbH}{Magdeburg, Germany}{Oct 2022 -- Sep 2023}
+\begin{itemize}\small
+  \item Designed and delivered data pipelines for 11 detection models with automated annotation and QA
+  \item Documented infrastructure and integration procedures for ongoing team operations
+\end{itemize}
+\vspace{2pt}
+
+\role{Data \& Analytics Consultant}{The Insights}{Yangon, Myanmar}{Jun 2021 -- Aug 2022}
+\begin{itemize}\small
+  \item Delivered automated ETL pipelines and Tableau/Power BI dashboards; reduced manual reporting by 60\%
+\end{itemize}
+
+\section{Delivered Solutions}
+
+\project{Industrial VLM Platform}{Computer vision, TensorRT, ONNX, FastAPI, Docker — 8+ enterprise clients}
+\begin{itemize}\small
+  \item Full consulting lifecycle: discovery $\rightarrow$ architecture $\rightarrow$ implementation $\rightarrow$ deployment $\rightarrow$ client adoption
+\end{itemize}
+\vspace{1pt}
+
+\project{KLAR — Interactive Learning Platform (Live)}{Next.js 16, React 19, TypeScript, CI/CD — klar-learn.dev}
+\begin{itemize}\small
+  \item Independently scoped and shipped full-stack consumer product (25 modules) in 3 weekends
+\end{itemize}
+\vspace{1pt}
+
+\project{Path2Anywhere — Route Optimisation App (Live)}{n8n, Docker, Google Maps API — path2anywhere.com}
+\begin{itemize}\small
+  \item Self-hosted automation platform on Hetzner VPS; demonstrates independent end-to-end delivery
+\end{itemize}
+\vspace{1pt}
+
+\project{Chess ELO Prediction}{Python, scikit-learn, Pandas — R\textsuperscript{2} = 0.81 on 100k+ records}
+\begin{itemize}\small
+  \item Feature engineering and ensemble modelling pipeline; demonstrates applied ML consulting capability
+\end{itemize}
+
+\section{Education}
+\small\noindent
+{\bfseries M.Sc. Data \& Knowledge Engineering} \hfill {\color{lightgray} SS2026 (admitted)}\\[-2pt]
+{\color{accent}Otto-von-Guericke-Universität (OVGU)}, Magdeburg, Germany\\[2pt]
+{\bfseries B.Sc. Artificial Intelligence} \hfill {\color{lightgray} Oct 2021 -- Feb 2026}\\[-2pt]
+{\color{accent}Deggendorf Institute of Technology (THD)}, Germany $\cdot$ Thesis (1.0)\\[2pt]
+{\bfseries B.Eng. Mechatronics Engineering} \hfill {\color{lightgray} 2015 -- 2020}\\[-2pt]
+{\color{accent}Yangon Technological University (YTU)}, Myanmar $\cdot$ Exchange at NTHU Taiwan (scholarship)
+
+\section{Awards}
+\small\noindent
+\begin{tabularx}{\textwidth}{@{}lX@{}}
+2021 & \textbf{Winner, ASEAN-INDIA Hackathon} — National Delegate for Myanmar\\[-1pt]
+2020 & \textbf{Runner-up, Future Ready ASEAN} — National Delegate for Myanmar (ASEAN Foundation)\\
+\end{tabularx}
+
+\section{Expertise}
+\begin{multicols}{2}
+\small\noindent
+{\color{accent}\bfseries AI/ML:} VLMs $\cdot$ Computer Vision $\cdot$ PyTorch $\cdot$ TensorRT $\cdot$ ONNX $\cdot$ scikit-learn\\[1pt]
+{\color{accent}\bfseries Data:} Kafka $\cdot$ MQTT $\cdot$ ETL $\cdot$ SQL $\cdot$ Pandas $\cdot$ Tableau $\cdot$ Power BI\\[1pt]
+{\color{accent}\bfseries Delivery:} Requirements Engineering $\cdot$ Solution Architecture $\cdot$ Stakeholder Mgmt
+
+\columnbreak
+{\color{accent}\bfseries Engineering:} Python $\cdot$ FastAPI $\cdot$ REST APIs $\cdot$ Docker $\cdot$ Linux $\cdot$ Git\\[1pt]
+{\color{accent}\bfseries Frontend:} Next.js $\cdot$ React $\cdot$ TypeScript $\cdot$ Tailwind CSS\\[1pt]
+{\color{accent}\bfseries Languages:} English C1 (TOEFL 104) $\cdot$ German B1
+\end{multicols}
+
+\end{document}
