@@ -41,6 +41,22 @@ export default function OutputPanel({ output, loading, error }: Props) {
     )
   }
 
+  if (error === 'credits_exhausted') {
+    return (
+      <div className="flex items-center justify-center min-h-[400px]">
+        <div className="text-center space-y-3 max-w-sm">
+          <p className="text-yellow-400 font-medium text-lg">API credits exhausted</p>
+          <p className="text-sm text-gray-400">
+            Your Anthropic API balance has run out. Top up at{' '}
+            <span className="text-blue-400 font-mono text-xs">console.anthropic.com</span>
+            {' '}then come back.
+          </p>
+          <p className="text-xs text-gray-600">Make sure auto top-up is off if you want manual control.</p>
+        </div>
+      </div>
+    )
+  }
+
   if (error) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">

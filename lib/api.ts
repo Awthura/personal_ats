@@ -29,6 +29,10 @@ export async function generateDocuments(jd: string): Promise<GeneratedOutput> {
     throw new AuthError()
   }
 
+  if (res.status === 402) {
+    throw new Error('credits_exhausted')
+  }
+
   if (!res.ok) {
     const data = await res.json().catch(() => ({}))
     throw new Error((data as { error?: string }).error || 'Generation failed')

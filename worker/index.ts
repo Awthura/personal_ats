@@ -112,6 +112,9 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
   if (!response.ok) {
     const err = await response.text()
     console.error('Anthropic error:', err)
+    if (response.status === 402) {
+      return json({ error: 'credits_exhausted' }, 402, env)
+    }
     return json({ error: 'Claude API error' }, 502, env)
   }
 
