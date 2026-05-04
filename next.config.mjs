@@ -1,6 +1,5 @@
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   output: 'export',
   // Set NEXT_PUBLIC_BASE_PATH to your repo name if hosted at
   // https://username.github.io/repo-name (e.g. '/personal_ats')
