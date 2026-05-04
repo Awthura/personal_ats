@@ -42,7 +42,8 @@ export default function OutputPanel({ output, loading, error }: Props) {
         router.push('/login')
         return
       }
-      setCompileError('PDF compilation failed — download .tex and compile locally instead.')
+      downloadTex(content, filename)
+      setCompileError('PDF compilation failed — .tex downloaded. Run: pdflatex ' + filename + '.tex')
     } finally {
       setCompiling(null)
     }
