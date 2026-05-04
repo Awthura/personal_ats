@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { savePassword, generateDocuments, AuthError } from '@/lib/api'
+import { savePassword, validatePassword } from '@/lib/api'
 
 export default function LoginPage() {
   const [password, setPassword] = useState('')
@@ -15,19 +15,14 @@ export default function LoginPage() {
     setLoading(true)
     setError('')
 
-    // Validate by making a real call with a dummy JD
-    savePassword(password)
-    try {
-      await generateDocuments('test')
-    } catch (err) {
-      if (err instanceof AuthError) {
-        setError('Incorrect password.')
-        setLoading(false)
-        return
-      }
-      // Any non-auth error means the password was accepted
+    const valid = await validatePassword(password)
+    if (!valid) {
+      setError('Incorrect password.')
+      setLoading(false)
+      return
     }
 
+    savePassword(password)
     router.push('/')
   }
 

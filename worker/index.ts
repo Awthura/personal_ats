@@ -148,6 +148,15 @@ export default {
 
     const { pathname } = new URL(request.url)
 
+    if (pathname === '/auth' && request.method === 'POST') {
+      let body: { password?: string }
+      try { body = await request.json() } catch { return json({ error: 'Invalid JSON' }, 400, env) }
+      if (!body.password || body.password !== env.ATS_PASSWORD) {
+        return json({ error: 'Unauthorized' }, 401, env)
+      }
+      return json({ ok: true }, 200, env)
+    }
+
     if (pathname === '/generate' && request.method === 'POST') {
       return handleGenerate(request, env)
     }

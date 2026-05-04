@@ -14,6 +14,15 @@ export function clearPassword() {
   localStorage.removeItem('ats_pw')
 }
 
+export async function validatePassword(password: string): Promise<boolean> {
+  const res = await fetch(`${WORKER_URL}/auth`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password }),
+  })
+  return res.ok
+}
+
 export async function generateDocuments(jd: string): Promise<GeneratedOutput> {
   const password = getPassword()
   if (!password) throw new AuthError()
