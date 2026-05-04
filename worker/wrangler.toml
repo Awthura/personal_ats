@@ -2,6 +2,7 @@ name = "personal-ats"
 main = "index.ts"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
+workers_dev = true
 
 # Set these secrets via CLI (never commit them):
 #   wrangler secret put ANTHROPIC_API_KEY
@@ -10,3 +11,7 @@ compatibility_flags = ["nodejs_compat"]
 # Set this as a plain var (your GitHub Pages origin):
 [vars]
 ALLOWED_ORIGIN = "https://awthura.github.io"
+
+[[kv_namespaces]]
+binding = "PROFILE_STORE"
+id = "2ad1568aeb584388ab63b1c9c4ceaf6e"

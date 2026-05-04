@@ -13,8 +13,8 @@
 interface Env {
   ANTHROPIC_API_KEY: string
   ATS_PASSWORD: string
-  ALLOWED_ORIGIN: string  // e.g. https://awthura.github.io
-  PROFILE_JSON: string    // JSON string — set via: wrangler secret put PROFILE_JSON < ../data/profile.json
+  ALLOWED_ORIGIN: string
+  PROFILE_STORE: KVNamespace  // wrangler kv key put --binding PROFILE_STORE "profile" < ../data/profile.json
 }
 
 // ─── System prompt (built per request using PROFILE_JSON secret) ──────────────
@@ -86,7 +86,11 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
     return json({ error: 'No job description provided' }, 400, env)
   }
 
-  const systemPrompt = buildSystemPrompt(env.PROFILE_JSON)
+  const profileJson = await env.PROFILE_STORE.get('profile')
+  if (!profileJson) {
+    return json({ error: 'Profile data not found. Run: wrangler kv key put --binding PROFILE_STORE "profile" < ../data/profile.json' }, 500, env)
+  }
+  const systemPrompt = buildSystemPrompt(profileJson)
 
   // Call Anthropic
   const response = await fetch('https://api.anthropic.com/v1/messages', {
