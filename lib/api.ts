@@ -23,14 +23,14 @@ export async function validatePassword(password: string): Promise<boolean> {
   return res.ok
 }
 
-export async function generateDocuments(jd: string): Promise<GeneratedOutput> {
+export async function generateDocuments(jd: string, includeCL = true): Promise<GeneratedOutput> {
   const password = getPassword()
   if (!password) throw new AuthError()
 
   const res = await fetch(`${WORKER_URL}/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ jd, password }),
+    body: JSON.stringify({ jd, password, include_cl: includeCL }),
   })
 
   if (res.status === 401) {
@@ -48,6 +48,28 @@ export async function generateDocuments(jd: string): Promise<GeneratedOutput> {
   }
 
   return res.json()
+}
+
+export async function compileToPdf(latex: string, filename: string): Promise<void> {
+  const password = getPassword()
+  if (!password) throw new AuthError()
+
+  const res = await fetch(`${WORKER_URL}/compile`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ latex, password }),
+  })
+
+  if (res.status === 401) { clearPassword(); throw new AuthError() }
+  if (!res.ok) throw new Error('PDF compilation failed')
+
+  const blob = await res.blob()
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `${filename}.pdf`
+  a.click()
+  URL.revokeObjectURL(url)
 }
 
 export class AuthError extends Error {

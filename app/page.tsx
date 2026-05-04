@@ -18,13 +18,13 @@ export default function Dashboard() {
     if (!getPassword()) router.push('/login')
   }, [router])
 
-  async function handleGenerate(jd: string) {
+  async function handleGenerate(jd: string, includeCL: boolean) {
     setLoading(true)
     setError('')
     setOutput(null)
 
     try {
-      const data = await generateDocuments(jd)
+      const data = await generateDocuments(jd, includeCL)
       setOutput(data)
 
       const history = JSON.parse(localStorage.getItem('ats_history') || '[]')

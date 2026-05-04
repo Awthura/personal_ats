@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import type { GeneratedOutput } from '@/lib/types'
+import { compileToPdf, AuthError } from '@/lib/api'
+import { useRouter } from 'next/navigation'
 
 interface Props {
   output: GeneratedOutput | null
@@ -14,8 +16,13 @@ type Tab = 'cv' | 'cl'
 export default function OutputPanel({ output, loading, error }: Props) {
   const [tab, setTab] = useState<Tab>('cv')
   const [copied, setCopied] = useState<Tab | null>(null)
+  const [compiling, setCompiling] = useState<Tab | null>(null)
+  const [compileError, setCompileError] = useState('')
+  const router = useRouter()
 
-  function download(content: string, filename: string) {
+  const hasCL = !!output?.cl_latex
+
+  function downloadTex(content: string, filename: string) {
     const blob = new Blob([content], { type: 'text/plain' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -23,6 +30,22 @@ export default function OutputPanel({ output, loading, error }: Props) {
     a.download = `${filename}.tex`
     a.click()
     URL.revokeObjectURL(url)
+  }
+
+  async function downloadPdf(content: string, filename: string, which: Tab) {
+    setCompiling(which)
+    setCompileError('')
+    try {
+      await compileToPdf(content, filename)
+    } catch (err) {
+      if (err instanceof AuthError) {
+        router.push('/login')
+        return
+      }
+      setCompileError('PDF compilation failed — download .tex and compile locally instead.')
+    } finally {
+      setCompiling(null)
+    }
   }
 
   async function copy(content: string, which: Tab) {
@@ -78,8 +101,9 @@ export default function OutputPanel({ output, loading, error }: Props) {
     )
   }
 
-  const currentContent = tab === 'cv' ? output.cv_latex : output.cl_latex
-  const currentFilename = tab === 'cv' ? output.filename_cv : output.filename_cl
+  const currentContent = tab === 'cv' ? output.cv_latex : (output.cl_latex ?? '')
+  const currentFilename = tab === 'cv' ? output.filename_cv : (output.filename_cl ?? '')
+  const isCompilingThis = compiling === tab
 
   return (
     <div className="flex flex-col gap-4">
@@ -94,48 +118,59 @@ export default function OutputPanel({ output, loading, error }: Props) {
 
       {/* Tab switcher */}
       <div className="flex gap-1 bg-gray-900 rounded-lg p-1">
-        {(['cv', 'cl'] as Tab[]).map((t) => (
+        <button
+          onClick={() => setTab('cv')}
+          className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${
+            tab === 'cv' ? 'bg-gray-700 text-white' : 'text-gray-500 hover:text-gray-300'
+          }`}
+        >
+          CV / Resume
+        </button>
+        {hasCL && (
           <button
-            key={t}
-            onClick={() => setTab(t)}
+            onClick={() => setTab('cl')}
             className={`flex-1 py-1.5 text-sm font-medium rounded-md transition-colors ${
-              tab === t
-                ? 'bg-gray-700 text-white'
-                : 'text-gray-500 hover:text-gray-300'
+              tab === 'cl' ? 'bg-gray-700 text-white' : 'text-gray-500 hover:text-gray-300'
             }`}
           >
-            {t === 'cv' ? 'CV / Resume' : 'Cover Letter'}
+            Cover Letter
           </button>
-        ))}
+        )}
       </div>
 
       {/* Source code view */}
       <div className="relative">
-        <pre className="bg-gray-900 border border-gray-700 rounded-lg p-4 text-xs text-gray-300 overflow-auto max-h-[420px] font-mono whitespace-pre-wrap">
+        <pre className="bg-gray-900 border border-gray-700 rounded-lg p-4 text-xs text-gray-300 overflow-auto max-h-[380px] font-mono whitespace-pre-wrap">
           {currentContent}
         </pre>
       </div>
 
       {/* Action buttons */}
-      <div className="flex gap-3">
+      <div className="grid grid-cols-3 gap-2">
         <button
-          onClick={() => download(currentContent, currentFilename)}
-          className="flex-1 py-2.5 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors"
+          onClick={() => downloadPdf(currentContent, currentFilename, tab)}
+          disabled={isCompilingThis}
+          className="py-2.5 bg-blue-700 hover:bg-blue-600 disabled:bg-gray-800 disabled:text-gray-600 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-1.5"
         >
-          ↓ Download .tex
+          {isCompilingThis ? (
+            <><span className="w-3.5 h-3.5 border-2 border-gray-400 border-t-white rounded-full animate-spin" /> Compiling…</>
+          ) : '↓ PDF'}
+        </button>
+        <button
+          onClick={() => downloadTex(currentContent, currentFilename)}
+          className="py-2.5 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors"
+        >
+          ↓ .tex
         </button>
         <button
           onClick={() => copy(currentContent, tab)}
-          className="flex-1 py-2.5 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors"
+          className="py-2.5 bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium rounded-lg transition-colors"
         >
-          {copied === tab ? '✓ Copied!' : '⧉ Copy LaTeX'}
+          {copied === tab ? '✓ Copied' : '⧉ Copy'}
         </button>
       </div>
 
-      {/* Compile hint */}
-      <p className="text-xs text-gray-600">
-        Compile: <code className="text-gray-500">pdflatex {currentFilename}.tex</code>
-      </p>
+      {compileError && <p className="text-xs text-yellow-500">{compileError}</p>}
     </div>
   )
 }
