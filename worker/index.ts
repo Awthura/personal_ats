@@ -64,9 +64,9 @@ ${clRule}
 CV LaTeX structure — follow this EXACTLY. Single column only. Fill [CONTENT] with tailored profile data.
 
 DESIGN RULES (never deviate):
+- ONE PAGE HARD LIMIT: The CV must compile to exactly 1 page. No exceptions. If content overflows, trim bullets to 1 line each, remove less relevant roles or projects, shorten the profile. Do not change margins, font size, or spacing — cut content instead.
 - Single column — no sidebar, no paracol, no multicol for layout
 - No dashes anywhere: no -- no --- no em-dash. Use Unicode – for date ranges, rewrite any em-dash construction
-- Must fit on exactly 1 page
 - All body text in black; colors only on decorative elements (icons, bullets, rules, labels)
 - Profile: 2-3 lines max, punchy opening "Asian-born, Germany-based AI engineer with..."
 
