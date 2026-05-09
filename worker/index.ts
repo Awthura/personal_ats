@@ -178,13 +178,6 @@ function json(data: unknown, status = 200, env: Env): Response {
 
 // ─── Handlers ─────────────────────────────────────────────────────────────────
 
-function toBase64(str: string): string {
-  const bytes = new TextEncoder().encode(str)
-  let binary = ''
-  bytes.forEach(b => (binary += String.fromCharCode(b)))
-  return btoa(binary)
-}
-
 async function handleCompile(request: Request, env: Env): Promise<Response> {
   let body: { latex?: string; password?: string }
   try { body = await request.json() } catch { return json({ error: 'Invalid JSON' }, 400, env) }
@@ -196,13 +189,14 @@ async function handleCompile(request: Request, env: Env): Promise<Response> {
 
   const photoB64 = await env.PROFILE_STORE.get('profile_photo_b64')
 
-  const resources: { main?: boolean; content: string; path: string }[] = [
-    { main: true, content: toBase64(body.latex), path: 'document.tex' },
+  // ytotech JSON API: "content" = plain text (tex), "file" = base64 (binary)
+  const resources: Record<string, unknown>[] = [
+    { main: true, content: body.latex },
   ]
   if (photoB64) {
-    resources.push({ content: photoB64, path: 'profile.jpg' })
+    resources.push({ path: 'profile.jpg', file: photoB64 })
   } else {
-    console.warn('profile_photo_b64 not found in KV — photo will be omitted from PDF')
+    console.warn('profile_photo_b64 not in KV — photo omitted')
   }
 
   const res = await fetch('https://latex.ytotech.com/builds/sync', {
