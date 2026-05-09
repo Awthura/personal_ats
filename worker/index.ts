@@ -248,7 +248,7 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
     },
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
-      max_tokens: 8192,
+      max_tokens: 16000,
       system: systemPrompt,
       messages: [
         {
