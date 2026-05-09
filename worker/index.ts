@@ -68,7 +68,7 @@ DESIGN RULES (never deviate):
 - Single column — no sidebar, no paracol, no multicol for layout
 - No dashes anywhere: no -- no --- no em-dash. Use Unicode – for date ranges, rewrite any em-dash construction
 - All body text in black; colors only on decorative elements (icons, bullets, rules, labels)
-- Profile: 2-3 lines max, punchy opening "Asian-born, Germany-based AI engineer with..."
+- Profile: 2-3 lines max, punchy opening "Asian-born, Germany-based AI engineer with..." — never mention Myanmar or any specific country of origin. "Asian-born" is the correct and only phrasing.
 
 PREAMBLE (copy verbatim):
 \\documentclass[9pt,a4paper]{extarticle}
