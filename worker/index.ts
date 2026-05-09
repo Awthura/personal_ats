@@ -21,7 +21,7 @@ interface Env {
 
 function buildSystemPrompt(profileJson: string, includeCL: boolean): string {
   const clRule = includeCL
-    ? '- Cover letter: write in Aw Thura\'s genuine voice — personal, specific details that connect to the company/role, honest, advanced but natural English (or German). No corporate jargon. No em-dashes or en-dashes in body text.'
+    ? '- Cover letter: write in Aw Thura\'s genuine voice. Personal, specific details that connect to the company/role. Honest, advanced but natural English (or German). No corporate jargon. STRICT: do not use any dashes in the cover letter body text. This means no em-dashes (Unicode — or LaTeX ---), no en-dashes (Unicode – or LaTeX --), and no hyphens used as sentence dashes. Replace every such construction with a comma, colon, semicolon, or a restructured sentence.'
     : '- No cover letter is needed. Set cl_latex and filename_cl to empty strings "".'
 
   const outputFormat = includeCL
@@ -56,10 +56,103 @@ ${profileJson}
 
 Rules:
 - Match the document language to the job description language (German JD → German CV + CL, English JD → English CV + CL).
-- CV: use extarticle 9pt LaTeX with the exact formatting in profile.latex_settings. Photo header (minipage with profile.jpg). All facts must come from profile — never invent experience.
 - CV title should match the role type in the JD.
 - If a German JD requires very good German, acknowledge the B1 level honestly in the CL.
+- All facts must come from profile — never invent experience, metrics, or dates.
 ${clRule}
+
+CV LaTeX structure — follow this EXACTLY. Single column only. Fill [CONTENT] with tailored profile data.
+
+DESIGN RULES (never deviate):
+- Single column — no sidebar, no paracol, no multicol for layout
+- No dashes anywhere: no -- no --- no em-dash. Use Unicode – for date ranges, rewrite any em-dash construction
+- Must fit on exactly 1 page
+- All body text in black; colors only on decorative elements (icons, bullets, rules, labels)
+- Profile: 2-3 lines max, punchy opening "Asian-born, Germany-based AI engineer with..."
+
+PREAMBLE (copy verbatim):
+\\documentclass[9pt,a4paper]{extarticle}
+\\usepackage[T1]{fontenc}
+\\usepackage[utf8]{inputenc}
+\\usepackage[default]{lato}
+\\usepackage[a4paper, top=0.9cm, bottom=0.9cm, left=1.2cm, right=1.2cm]{geometry}
+\\usepackage{xcolor,titlesec,enumitem,tabularx,array,hyperref,microtype,multicol,fontawesome5,graphicx}
+\\definecolor{accent}{RGB}{20, 45, 90}
+\\definecolor{highlight}{RGB}{0, 155, 140}
+\\definecolor{lightgray}{RGB}{100,100,100}
+\\definecolor{headerbg}{RGB}{240, 245, 252}
+\\hypersetup{colorlinks=true, urlcolor=highlight, linkcolor=highlight, pdfborder={0 0 0}}
+\\titleformat{\\section}{\\color{accent}\\small\\bfseries}{}{0em}{\\textcolor{highlight}{\\rule[-1.5pt]{2.5pt}{8.5pt}}\\hspace{5pt}\\MakeUppercase}[\\vspace{1pt}\\color{accent!25}\\titlerule\\vspace{3pt}]
+\\titlespacing{\\section}{0pt}{5pt}{3pt}
+\\newcommand{\\role}[4]{\\noindent{\\small\\bfseries #1}\\hfill{\\color{lightgray}\\small #4}\\\\[2pt]{\\small\\color{highlight}#2}~$\\cdot$~{\\small\\color{lightgray}#3}\\\\[0.7pt]}
+\\newcommand{\\project}[2]{\\noindent{\\small\\bfseries #1}\\\\[0pt]{\\footnotesize\\color{lightgray}#2}}
+\\setlist[itemize]{leftmargin=1.2em, topsep=2pt, itemsep=1pt, parsep=0pt, label={\\small\\textcolor{highlight}{$\\circ$}}}
+\\setlength{\\parskip}{0pt}
+\\setlength{\\parindent}{0pt}
+\\pagestyle{empty}
+
+DOCUMENT STRUCTURE:
+\\begin{document}
+% HEADER — full-width tinted band
+\\noindent
+\\colorbox{headerbg}{\\parbox[t]{\\dimexpr\\linewidth-2\\fboxsep\\relax}{%
+  \\vspace{8pt}%
+  \\begin{minipage}[c]{0.75\\linewidth}
+    {\\LARGE\\bfseries\\color{accent} [NAME]}\\hspace{10pt}{\\normalsize\\color{highlight} [ROLE TITLE]}\\\\[5pt]
+    \\small\\color{lightgray}
+    \\textcolor{highlight}{\\faEnvelope}\\enspace\\href{mailto:[EMAIL]}{[EMAIL]}\\enspace{\\color{accent!40}|}\\enspace
+    \\textcolor{highlight}{\\faPhone}\\enspace [PHONE]\\enspace{\\color{accent!40}|}\\enspace
+    \\textcolor{highlight}{\\faLinkedin}\\enspace\\href{https://[LINKEDIN]}{[LINKEDIN]}\\\\[2pt]
+    \\textcolor{highlight}{\\faGithub}\\enspace\\href{https://[GITHUB]}{[GITHUB]}\\enspace{\\color{accent!40}|}\\enspace
+    \\textcolor{highlight}{\\faGlobe}\\enspace\\href{https://[PORTFOLIO]}{[PORTFOLIO]}
+  \\end{minipage}%
+  \\hfill
+  \\begin{minipage}[c]{0.19\\linewidth}
+    \\raggedleft
+    \\fcolorbox{highlight}{white}{\\includegraphics[width=2.1cm,height=2.7cm,keepaspectratio]{profile.jpg}}%
+  \\end{minipage}
+  \\vspace{8pt}%
+}}
+\\vspace{1pt}
+\\textcolor{accent}{\\rule{\\linewidth}{0.8pt}}
+\\vspace{4pt}
+% PROFILE
+\\section{Profile}
+\\small [2-3 line punchy summary]
+% EXPERIENCE — \\vspace{2pt} between role blocks
+\\section{Professional Experience}
+\\role{[Title]}{[Company]}{[Location]}{[Month YYYY – Month YYYY]}
+\\begin{itemize}\\small
+  \\item [bullet]
+\\end{itemize}
+\\vspace{2pt}
+% PROJECTS — \\begin{itemize}[topsep=3pt] for project lists
+\\section{Technical Projects}
+\\project{[Name]}{[Tech stack]}
+\\begin{itemize}[topsep=3pt]\\small
+  \\item [bullet]
+\\end{itemize}
+\\vspace{1pt}
+% EDUCATION
+\\section{Education}
+\\small\\noindent
+{\\bfseries [Degree]} \\hfill {\\color{lightgray} [Dates]}\\\\[0pt]
+{\\color{highlight}[Institution]}, [Location]\\\\[3pt]
+% AWARDS
+\\section{Awards}
+\\small\\noindent
+\\begin{tabularx}{\\linewidth}{@{}lX@{}}
+[YEAR] & \\textbf{[Award]} — [detail]\\\\
+\\end{tabularx}
+% SKILLS — 2 columns via multicol
+\\section{Skills}
+\\begin{multicols}{2}
+\\small\\noindent
+{\\color{accent}\\bfseries [Category]:} item · item\\\\[1pt]
+\\columnbreak
+{\\color{accent}\\bfseries [Category]:} item · item
+\\end{multicols}
+\\end{document}
 
 Output format — return ONLY valid JSON, no markdown fences:
 ${outputFormat}`
@@ -85,6 +178,13 @@ function json(data: unknown, status = 200, env: Env): Response {
 
 // ─── Handlers ─────────────────────────────────────────────────────────────────
 
+function toBase64(str: string): string {
+  const bytes = new TextEncoder().encode(str)
+  let binary = ''
+  bytes.forEach(b => (binary += String.fromCharCode(b)))
+  return btoa(binary)
+}
+
 async function handleCompile(request: Request, env: Env): Promise<Response> {
   let body: { latex?: string; password?: string }
   try { body = await request.json() } catch { return json({ error: 'Invalid JSON' }, 400, env) }
@@ -94,14 +194,22 @@ async function handleCompile(request: Request, env: Env): Promise<Response> {
   }
   if (!body.latex?.trim()) return json({ error: 'No LaTeX provided' }, 400, env)
 
-  // Strip photo include — profile.jpg is not available on the compilation server
-  const safeTex = body.latex.replace(/\\includegraphics(\[[^\]]*\])?\{profile\.jpg\}/g, '')
+  const photoB64 = await env.PROFILE_STORE.get('profile_photo_b64')
 
-  const formData = new FormData()
-  formData.append('file', new Blob([safeTex], { type: 'text/plain' }), 'document.tex')
-  formData.append('compiler', 'pdflatex')
+  const resources: { main?: boolean; content: string; path: string }[] = [
+    { main: true, content: toBase64(body.latex), path: 'document.tex' },
+  ]
+  if (photoB64) {
+    resources.push({ content: photoB64, path: 'profile.jpg' })
+  } else {
+    console.warn('profile_photo_b64 not found in KV — photo will be omitted from PDF')
+  }
 
-  const res = await fetch('https://latex.ytotech.com/builds/sync', { method: 'POST', body: formData })
+  const res = await fetch('https://latex.ytotech.com/builds/sync', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ compiler: 'pdflatex', resources }),
+  })
   if (!res.ok) {
     console.error('LaTeX compile error:', await res.text().then(t => t.slice(0, 400)))
     return json({ error: 'PDF compilation failed' }, 502, env)

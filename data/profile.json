@@ -18,21 +18,35 @@
       "location": "Magdeburg, Germany",
       "start": "2026-04",
       "end": "present",
-      "note": "Currently enrolled"
+      "status": "currently enrolled",
+      "motivation": "Enrolled to deepen knowledge in data and AI engineering while actively seeking a job — not a barrier to work, but a deliberate choice to keep learning.",
+      "flexibility": "Willing to drop out of the Masters if the right full-time opportunity comes. The degree is not the goal; the work is.",
+      "talking_point_guidance": "For full-time roles: use the Masters enrolment as a positive signal of continuous learning, and if relevant, mention that he is fully open to leaving the programme for the right opportunity — it is not a commitment that blocks him. For working student (Werkstudent) roles: omit or downplay this framing, as it is already expected that a working student is enrolled."
     },
     {
       "degree": "B.Sc. Artificial Intelligence",
       "institution": "Deggendorf Institute of Technology (THD)",
-      "location": "Germany",
+      "location": "Deggendorf, Germany",
       "start": "2021-10",
       "end": "2026-02",
+      "status": "completed in Germany",
+      "overall_gpa": "2.1 (German scale)",
       "grades": {
         "thesis": "1.0",
-        "deep_learning": "1.0",
+        "deep_learning_big_data": "1.0",
         "computer_vision": "1.0",
         "machine_learning": "1.3",
-        "big_data": "1.0"
-      }
+        "ai_applications": "1.0",
+        "ai_seminar_current_topics": "1.0",
+        "ai_in_industry": "1.3",
+        "ai_project": "1.3",
+        "software_engineering": "1.7",
+        "autonomous_robotics": "1.7",
+        "assistance_systems": "1.7",
+        "algorithms_and_data_structures": "2.3",
+        "project_management": "2.3"
+      },
+      "grades_usage_guidance": "Use selected grades as supporting detail when they strengthen the application. For AI/ML roles highlight: Deep Learning 1.0, Computer Vision 1.0, Machine Learning 1.3, AI Applications 1.0. For robotics/CV roles add Autonomous Robotics 1.7. For software/backend roles add Software Engineering 1.7, Algorithms 2.3. Do not list all grades at once — pick 3 to 5 most relevant ones. Overall GPA 2.1 is decent but not the headline; only mention it if the JD asks for it."
     },
     {
       "degree": "B.Eng. Mechatronics Engineering",
@@ -91,24 +105,26 @@
       ]
     },
     {
-      "title": "Data Engineer (Part-time)",
+      "title": "Data Analyst (Part-time)",
       "company": "The Insights",
       "location": "Yangon, Myanmar",
       "start": "2021-06",
       "end": "2022-08",
       "type": "part-time",
+      "note": "Data advocacy group reporting on elections and significant national events in Myanmar",
       "bullets": [
-        "Built automated ETL pipelines and Power BI/Tableau dashboards; reduced manual reporting effort by 60%",
-        "Collaborated with business stakeholders to define KPIs and deliver decision-ready analytics"
+        "Collected, entered, and formatted datasets on elections and significant national events for public reporting",
+        "Built data visualisations and dashboards in Tableau, Google Data Studio, and Power BI to communicate findings clearly"
       ]
     },
     {
       "title": "Software Engineering Project Lead & Scrum Master",
-      "company": "Yangon Technological University",
-      "location": "Yangon, Myanmar",
-      "start": "2021",
-      "end": "2021",
+      "company": "Deggendorf Institute of Technology (THD)",
+      "location": "Deggendorf, Germany",
+      "start": "2023-10",
+      "end": "2024-02",
       "type": "academic",
+      "note": "Team project within the Software Engineering course, WS 2023/24. Grade: 1.7.",
       "bullets": [
         "Led 12-person cross-functional team (Jira) to deliver a full-stack web application",
         "Facilitated sprint ceremonies; presented results to management stakeholders"
@@ -206,16 +222,28 @@
 
   "latex_settings": {
     "document_class": "\\documentclass[9pt,a4paper]{extarticle}",
-    "geometry": "top=1.05cm, bottom=0.95cm, left=1.2cm, right=1.2cm",
-    "section_spacing": "titlespacing: 0pt 6pt 0pt",
-    "list_spacing": "topsep=2pt, itemsep=0.5pt, parsep=0pt",
-    "role_block_spacing": "\\vspace{3pt} between roles",
-    "project_block_spacing": "\\vspace{1pt} between projects",
+    "geometry": "top=0.9cm, bottom=0.9cm, left=1.2cm, right=1.2cm",
+    "layout": "SINGLE COLUMN — no sidebar, no paracol, no multicol for layout. Full-width tinted header band, then all sections in one column.",
     "colors": {
-      "accent": "RGB{30, 58, 95}",
-      "lightgray": "RGB{120, 120, 120}"
+      "accent": "RGB{20, 45, 90}",
+      "highlight": "RGB{0, 155, 140}",
+      "lightgray": "RGB{100, 100, 100}",
+      "headerbg": "RGB{240, 245, 252}"
     },
-    "hyperref": "use [draft] option to disable active content (required for SAP, Siemens portals)",
-    "note": "Always use extarticle 9pt. Never article 10pt — content overflows to 2 pages."
+    "header": "\\colorbox{headerbg}{\\parbox[t]{\\dimexpr\\linewidth-2\\fboxsep\\relax}{...}} with name (LARGE bold accent) + role title (normalsize highlight) + teal fontawesome5 icons + photo \\fcolorbox{highlight}{white}{\\includegraphics[width=2.1cm,height=2.7cm,keepaspectratio]{profile.jpg}}. Followed by \\textcolor{accent}{\\rule{\\linewidth}{0.8pt}}.",
+    "section_format": "\\titleformat{\\section}{\\color{accent}\\small\\bfseries}{}{0em}{\\textcolor{highlight}{\\rule[-1.5pt]{2.5pt}{8.5pt}}\\hspace{5pt}\\MakeUppercase}[\\vspace{1pt}\\color{accent!25}\\titlerule\\vspace{3pt}] — \\titlespacing{\\section}{0pt}{5pt}{3pt}",
+    "role_command": "\\newcommand{\\role}[4]{\\noindent{\\small\\bfseries #1}\\hfill{\\color{lightgray}\\small #4}\\\\[2pt]{\\small\\color{highlight}#2}~$\\cdot$~{\\small\\color{lightgray}#3}\\\\[0.7pt]}",
+    "role_spacing": "role title to company/location: \\\\[2pt] — company/location to first bullet: \\\\[0.7pt] — between role blocks: \\vspace{2pt}",
+    "project_command": "\\newcommand{\\project}[2]{\\noindent{\\small\\bfseries #1}\\\\[0pt]{\\footnotesize\\color{lightgray}#2}}",
+    "project_spacing": "project title to tech stack: \\\\[0pt] — tech stack to first bullet: topsep=3pt via \\begin{itemize}[topsep=3pt] — between project blocks: \\vspace{1pt}",
+    "list_spacing": "leftmargin=1.2em, topsep=2pt, itemsep=1pt, parsep=0pt, label={\\small\\textcolor{highlight}{$\\circ$}}",
+    "education_spacing": "degree title to institution: \\\\[0pt] — between education entries: \\\\[3pt]",
+    "skills": "2-column layout using \\begin{multicols}{2} — categories as {\\color{accent}\\bfseries Label:} items separated by ·",
+    "packages_required": "extarticle, lato, fontawesome5, graphicx, xcolor, titlesec, enumitem, tabularx, hyperref, microtype, multicol",
+    "profile_rule": "2-3 lines max. Opening: 'Asian-born, Germany-based AI engineer with X years of production experience in [specialisms].'",
+    "dash_rule": "NEVER use -- or --- anywhere. Use Unicode en-dash – for date ranges. Rewrite any em-dash construction with a comma or colon.",
+    "page_rule": "Must fit on exactly 1 page.",
+    "ats_rule": "Single column, all body text plain black. Colors only on decorative elements.",
+    "hyperref_note": "Use [draft] option to disable active links for SAP/Siemens portals."
   }
 }
