@@ -299,15 +299,19 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
   const claude = await response.json() as { content: { type: string; text: string }[] }
   const raw = claude.content[0]?.type === 'text' ? claude.content[0].text : ''
 
-  // Strip accidental markdown fences
-  const cleaned = raw.replace(/^```(?:json)?\n?/m, '').replace(/\n?```$/m, '').trim()
+  // Extract the outermost JSON object — robust against markdown fences or preamble text
+  const jsonMatch = raw.match(/\{[\s\S]*\}/)
+  if (!jsonMatch) {
+    console.error('No JSON object found. Raw:', raw.slice(0, 500))
+    return json({ error: `Failed to parse Claude output: no JSON object found. Raw: ${raw.slice(0, 300)}` }, 500, env)
+  }
 
   try {
-    const result = JSON.parse(cleaned)
+    const result = JSON.parse(jsonMatch[0])
     return json(result, 200, env)
-  } catch {
-    console.error('JSON parse failed. Raw:', raw.slice(0, 300))
-    return json({ error: 'Failed to parse Claude output' }, 500, env)
+  } catch (e) {
+    console.error('JSON parse failed. Raw:', raw.slice(0, 500))
+    return json({ error: `Failed to parse Claude output: ${e instanceof Error ? e.message : String(e)}. Raw: ${raw.slice(0, 300)}` }, 500, env)
   }
 }
 
