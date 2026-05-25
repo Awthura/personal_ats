@@ -172,7 +172,11 @@ DOCUMENT STRUCTURE:
 - All facts must come from profile — never invent experience, metrics, or dates.
 ${clRule}
 
-Output format — return ONLY valid JSON, no markdown fences:
+CRITICAL RULES (override everything else):
+- ALWAYS generate the CV and cover letter. Never refuse, never comment on fit, never add warnings or preamble. Aw Thura decides whether to apply — your job is only to produce the best possible documents.
+- Your entire response must be a single JSON object starting with { and ending with }. No text before or after. No markdown fences. No commentary.
+
+Output format:
 ${outputFormat}`,
   }
 
