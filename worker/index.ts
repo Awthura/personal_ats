@@ -19,7 +19,13 @@ interface Env {
 
 // ─── System prompt (built per request using PROFILE_JSON secret) ──────────────
 
-function buildSystemPrompt(profileJson: string, includeCL: boolean): string {
+type SystemBlock = { type: 'text'; text: string; cache_control?: { type: 'ephemeral' } }
+
+// Returns prompt as cacheable blocks:
+//   Block 1 (cached) — static role + full LaTeX template (never changes)
+//   Block 2 (cached) — profile JSON (rarely changes)
+//   Block 3          — dynamic rules + output schema (varies by includeCL)
+function buildSystemBlocks(profileJson: string, includeCL: boolean): SystemBlock[] {
   const clRule = includeCL
     ? '- Cover letter: write in Aw Thura\'s genuine voice. Personal, specific details that connect to the company/role. Honest, advanced but natural English (or German). No corporate jargon. STRICT: do not use any dashes in the cover letter body text. This means no em-dashes (Unicode — or LaTeX ---), no en-dashes (Unicode – or LaTeX --), and no hyphens used as sentence dashes. Replace every such construction with a comma, colon, semicolon, or a restructured sentence.'
     : '- No cover letter is needed. Set cl_latex and filename_cl to empty strings "".'
@@ -44,22 +50,16 @@ function buildSystemPrompt(profileJson: string, includeCL: boolean): string {
   "filename_cl": ""
 }`
 
-  return `You are an expert CV writer for Aw Thura, a professional AI/ML engineer based in Magdeburg, Germany.
+  // Block 1: static role description + full LaTeX template (never changes between requests)
+  const staticBlock: SystemBlock = {
+    type: 'text',
+    cache_control: { type: 'ephemeral' },
+    text: `You are an expert CV writer for Aw Thura, a professional AI/ML engineer based in Magdeburg, Germany.
 
 Your job:
 1. Analyse the job description for key requirements, skills, domain, language (EN or DE), and role type.
-2. Select the most relevant experience, projects, and skills from the profile below.
-3. Generate a fully tailored CV${includeCL ? ' and cover letter' : ''}.
-
-Profile data:
-${profileJson}
-
-Rules:
-- Match the document language to the job description language (German JD → German CV + CL, English JD → English CV + CL).
-- CV title should match the role type in the JD.
-- If a German JD requires very good German, acknowledge the B1 level honestly in the CL.
-- All facts must come from profile — never invent experience, metrics, or dates.
-${clRule}
+2. Select the most relevant experience, projects, and skills from the profile.
+3. Generate a fully tailored CV and/or cover letter per the rules below.
 
 CV LaTeX structure — follow this EXACTLY. Single column only. Fill [CONTENT] with tailored profile data.
 
@@ -152,10 +152,31 @@ DOCUMENT STRUCTURE:
 \\columnbreak
 {\\color{accent}\\bfseries [Category]:} item · item
 \\end{multicols}
-\\end{document}
+\\end{document}`,
+  }
+
+  // Block 2: profile JSON — cached separately since it changes independently of the template
+  const profileBlock: SystemBlock = {
+    type: 'text',
+    cache_control: { type: 'ephemeral' },
+    text: `Profile data:\n${profileJson}`,
+  }
+
+  // Block 3: dynamic rules + output schema (varies by includeCL — not cached)
+  const dynamicBlock: SystemBlock = {
+    type: 'text',
+    text: `Rules:
+- Match the document language to the job description language (German JD → German CV + CL, English JD → English CV + CL).
+- CV title should match the role type in the JD.
+- If a German JD requires very good German, acknowledge the B1 level honestly in the CL.
+- All facts must come from profile — never invent experience, metrics, or dates.
+${clRule}
 
 Output format — return ONLY valid JSON, no markdown fences:
-${outputFormat}`
+${outputFormat}`,
+  }
+
+  return [staticBlock, profileBlock, dynamicBlock]
 }
 
 // ─── CORS ─────────────────────────────────────────────────────────────────────
@@ -236,7 +257,7 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
   if (!profileJson) {
     return json({ error: 'Profile data not found. Run: wrangler kv key put --binding PROFILE_STORE "profile" < ../data/profile.json' }, 500, env)
   }
-  const systemPrompt = buildSystemPrompt(profileJson, includeCL)
+  const systemBlocks = buildSystemBlocks(profileJson, includeCL)
 
   // Call Anthropic
   const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -249,7 +270,7 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
     body: JSON.stringify({
       model: 'claude-sonnet-4-6',
       max_tokens: 16000,
-      system: systemPrompt,
+      system: systemBlocks,
       messages: [
         {
           role: 'user',
@@ -262,12 +283,17 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
   })
 
   if (!response.ok) {
-    const err = await response.text()
-    console.error('Anthropic error:', err)
+    const errText = await response.text()
+    console.error('Anthropic error:', errText)
     if (response.status === 402) {
       return json({ error: 'credits_exhausted' }, 402, env)
     }
-    return json({ error: 'Claude API error' }, 502, env)
+    let reason = 'Claude API error'
+    try {
+      const parsed = JSON.parse(errText)
+      reason = parsed?.error?.message || parsed?.message || reason
+    } catch { /* keep default */ }
+    return json({ error: `Claude API error: ${reason}` }, 502, env)
   }
 
   const claude = await response.json() as { content: { type: string; text: string }[] }

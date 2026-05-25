@@ -43,8 +43,15 @@ export async function generateDocuments(jd: string, includeCL = true): Promise<G
   }
 
   if (!res.ok) {
-    const data = await res.json().catch(() => ({}))
-    throw new Error((data as { error?: string }).error || 'Generation failed')
+    let message = `HTTP ${res.status}`
+    try {
+      const data = await res.json()
+      message = (data as { error?: string }).error || message
+    } catch {
+      const text = await res.text().catch(() => '')
+      message = `HTTP ${res.status}: ${text.slice(0, 300) || 'empty response'}`
+    }
+    throw new Error(message)
   }
 
   return res.json()
