@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import type { GeneratedOutput } from '@/lib/types'
 import { compileToPdf, AuthError } from '@/lib/api'
 import { useRouter } from 'next/navigation'
@@ -16,6 +16,10 @@ type Tab = 'cv' | 'cl'
 export default function OutputPanel({ output, loading, error }: Props) {
   const [tab, setTab] = useState<Tab>('cv')
   const [copied, setCopied] = useState<Tab | null>(null)
+
+  useEffect(() => {
+    if (output) setTab(output.cv_latex ? 'cv' : 'cl')
+  }, [output])
   const [compiling, setCompiling] = useState<Tab | null>(null)
   const [compileError, setCompileError] = useState('')
   const router = useRouter()

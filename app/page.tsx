@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import JobInput from '@/components/JobInput'
 import OutputPanel from '@/components/OutputPanel'
 import Header from '@/components/Header'
-import { generateDocuments, getPassword, AuthError } from '@/lib/api'
+import { generateDocuments, getPassword, AuthError, type GenerateMode } from '@/lib/api'
 import type { GeneratedOutput } from '@/lib/types'
 
 export default function Dashboard() {
@@ -18,13 +18,13 @@ export default function Dashboard() {
     if (!getPassword()) router.push('/login')
   }, [router])
 
-  async function handleGenerate(jd: string, includeCL: boolean) {
+  async function handleGenerate(jd: string, mode: GenerateMode) {
     setLoading(true)
     setError('')
     setOutput(null)
 
     try {
-      const data = await generateDocuments(jd, includeCL)
+      const data = await generateDocuments(jd, mode)
       setOutput(data)
 
       const history = JSON.parse(localStorage.getItem('ats_history') || '[]')

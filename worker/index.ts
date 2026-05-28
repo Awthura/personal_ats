@@ -25,29 +25,28 @@ type SystemBlock = { type: 'text'; text: string; cache_control?: { type: 'epheme
 //   Block 1 (cached) — static role + full LaTeX template (never changes)
 //   Block 2 (cached) — profile JSON (rarely changes)
 //   Block 3          — dynamic rules + output schema (varies by includeCL)
-function buildSystemBlocks(profileJson: string, includeCL: boolean): SystemBlock[] {
+type GenerateMode = 'cv' | 'cl' | 'both'
+
+function buildSystemBlocks(profileJson: string, mode: GenerateMode): SystemBlock[] {
+  const includeCL = mode === 'cl' || mode === 'both'
+  const includeCV = mode === 'cv' || mode === 'both'
+
+  const cvRule = includeCV
+    ? ''
+    : '- CV is NOT needed. Set cv_latex and filename_cv to empty strings "".'
+
   const clRule = includeCL
     ? '- Cover letter: write in Aw Thura\'s genuine voice. Personal, specific details that connect to the company/role. Honest, advanced but natural English (or German). No corporate jargon. STRICT: do not use any dashes in the cover letter body text. This means no em-dashes (Unicode — or LaTeX ---), no en-dashes (Unicode – or LaTeX --), and no hyphens used as sentence dashes. Replace every such construction with a comma, colon, semicolon, or a restructured sentence.'
     : '- No cover letter is needed. Set cl_latex and filename_cl to empty strings "".'
 
-  const outputFormat = includeCL
-    ? `{
+  const outputFormat = `{
   "language": "EN" | "DE",
   "role_title": "string",
   "company": "string",
-  "cv_latex": "full LaTeX source string",
-  "cl_latex": "full LaTeX source string",
-  "filename_cv": "resume_<Role>_AwThura_<Company>_<EN|DE>",
-  "filename_cl": "CoverLetter_<Company>_AwThura"
-}`
-    : `{
-  "language": "EN" | "DE",
-  "role_title": "string",
-  "company": "string",
-  "cv_latex": "full LaTeX source string",
-  "cl_latex": "",
-  "filename_cv": "resume_<Role>_AwThura_<Company>_<EN|DE>",
-  "filename_cl": ""
+  "cv_latex": ${includeCV ? '"full LaTeX source string"' : '""'},
+  "cl_latex": ${includeCL ? '"full LaTeX source string"' : '""'},
+  "filename_cv": ${includeCV ? '"resume_<Role>_AwThura_<Company>_<EN|DE>"' : '""'},
+  "filename_cl": ${includeCL ? '"CoverLetter_<Company>_AwThura"' : '""'}
 }`
 
   // Block 1: static role description + full LaTeX template (never changes between requests)
@@ -162,7 +161,7 @@ DOCUMENT STRUCTURE:
     text: `Profile data:\n${profileJson}`,
   }
 
-  // Block 3: dynamic rules + output schema (varies by includeCL — not cached)
+  // Block 3: dynamic rules + output schema (varies by mode — not cached)
   const dynamicBlock: SystemBlock = {
     type: 'text',
     text: `Rules:
@@ -170,6 +169,7 @@ DOCUMENT STRUCTURE:
 - CV title should match the role type in the JD.
 - If a German JD requires very good German, acknowledge the B1 level honestly in the CL.
 - All facts must come from profile — never invent experience, metrics, or dates.
+${cvRule}
 ${clRule}
 
 CRITICAL RULES (override everything else):
@@ -239,7 +239,7 @@ async function handleCompile(request: Request, env: Env): Promise<Response> {
 }
 
 async function handleGenerate(request: Request, env: Env): Promise<Response> {
-  let body: { jd?: string; password?: string; include_cl?: boolean }
+  let body: { jd?: string; password?: string; mode?: GenerateMode }
   try {
     body = await request.json()
   } catch {
@@ -255,13 +255,19 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
     return json({ error: 'No job description provided' }, 400, env)
   }
 
-  const includeCL = body.include_cl !== false
+  const mode: GenerateMode = body.mode ?? 'both'
 
   const profileJson = await env.PROFILE_STORE.get('profile')
   if (!profileJson) {
     return json({ error: 'Profile data not found. Run: wrangler kv key put --binding PROFILE_STORE "profile" < ../data/profile.json' }, 500, env)
   }
-  const systemBlocks = buildSystemBlocks(profileJson, includeCL)
+  const systemBlocks = buildSystemBlocks(profileJson, mode)
+
+  const userMessage = {
+    cv: 'Generate a tailored CV only (no cover letter) for this job description:',
+    cl: 'Generate a cover letter only (no CV) for this job description:',
+    both: 'Generate a tailored CV and cover letter for this job description:',
+  }[mode]
 
   // Call Anthropic
   const response = await fetch('https://api.anthropic.com/v1/messages', {
@@ -278,9 +284,7 @@ async function handleGenerate(request: Request, env: Env): Promise<Response> {
       messages: [
         {
           role: 'user',
-          content: includeCL
-            ? `Generate a tailored CV and cover letter for this job description:\n\n${body.jd}`
-            : `Generate a tailored CV only (no cover letter needed) for this job description:\n\n${body.jd}`,
+          content: `${userMessage}\n\n${body.jd}`,
         },
       ],
     }),

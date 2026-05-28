@@ -23,14 +23,16 @@ export async function validatePassword(password: string): Promise<boolean> {
   return res.ok
 }
 
-export async function generateDocuments(jd: string, includeCL = true): Promise<GeneratedOutput> {
+export type GenerateMode = 'cv' | 'cl' | 'both'
+
+export async function generateDocuments(jd: string, mode: GenerateMode = 'both'): Promise<GeneratedOutput> {
   const password = getPassword()
   if (!password) throw new AuthError()
 
   const res = await fetch(`${WORKER_URL}/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ jd, password, include_cl: includeCL }),
+    body: JSON.stringify({ jd, password, mode }),
   })
 
   if (res.status === 401) {
